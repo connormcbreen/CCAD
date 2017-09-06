@@ -26,7 +26,7 @@ public class Test extends JFrame {
 			input = scan.nextInt();
 			c.changeState(input);
 		}
-		//this.validate();
+		
 
 	}
 	
