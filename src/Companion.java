@@ -15,9 +15,9 @@ public class Companion extends JPanel {
 	
 	
 	public Companion() throws URISyntaxException {
-		setLayout(new FlowLayout());
+		setLayout(new BorderLayout());
 		
-		setPreferredSize(new Dimension(240,323));
+		//setPreferredSize(new Dimension(240,323));
 		
 		try {
 			name = ImageIO.read(new File(getClass().getResource("Name.png").toURI()));
@@ -38,15 +38,15 @@ public class Companion extends JPanel {
 		super.paintComponent(g);
 		
 		if(status == 1) {
-			g.drawImage(happy, 0, 0, 240,323, this);
+			g.drawImage(happy, 0, 0, getWidth(), getHeight(), this);
 		} else if (status == 2) {
-			g.drawImage(thinking, 0, 0, 240,323, this);
+			g.drawImage(thinking, 0, 0, getWidth(), getHeight(), this);
 		} else if (status == 3) {
-			g.drawImage(worry, 0, 0, 240,323, this);
+			g.drawImage(worry, 0, 0, getWidth(), getHeight(), this);
 		} else if (status == 4) {
-			g.drawImage(sorry, 0, 0, 240,323, this);
+			g.drawImage(sorry, 0, 0, getWidth(), getHeight(), this);
 		} else {
-			g.drawImage(name, 0, 0, 240,323, this);
+			g.drawImage(name, 0, 0, getWidth(), getHeight(), this);
 		}
 		
 	}

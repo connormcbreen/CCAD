@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.net.URISyntaxException;
+
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -8,13 +10,14 @@ public class Universe extends JFrame
 {
 
     //Create Needed panels and labels
-    private JLabel labelOne = new JLabel("Carter");
+    //private JLabel labelOne = new JLabel("Carter");
     //private JLabel labelTwo= new JLabel("Conner");
     private JLabel labelThree = new JLabel("Abhi");
     private JLabel labelFour = new JLabel("Daniel");
     private JSlider sliderOne = new JSlider();
-
-    private JPanel panelOne = new JPanel();
+    Companion c = null; //added by CK
+    
+    //private JPanel panelOne = new JPanel();
 
     private JPanel panelThree = new JPanel();
     private JPanel panelFour = new JPanel();
@@ -25,23 +28,29 @@ public class Universe extends JFrame
 
     public Universe()
     {
-         TutorPanel panelTwo;
-         panelTwo = new TutorPanel();
-
+        TutorPanel panelTwo;
+        panelTwo = new TutorPanel();
+        
+    
+ 		try {
+ 			c = new Companion();
+ 		} catch (URISyntaxException e) {
+ 			e.printStackTrace();
+ 		}//
+ 		
         //Create action listener to listen for changes in the sliders state
         sliderOne.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
+        
+        	public void stateChanged(ChangeEvent e) {
                 System.out.println( sliderOne.getValue());
                 changeLabelVisibility();
                 panelTwo.changeState(sliderOne.getValue());
-
-
-
+                c.changeState(sliderOne.getValue());
             }
         });
 
-        panelOne.setBackground(Color.yellow);
-        panelOne.setBorder(BorderFactory.createLineBorder(Color.black));
+        c.setBackground(Color.yellow);
+        c.setBorder(BorderFactory.createLineBorder(Color.black));
         panelTwo.setBackground(Color.BLUE);
 
         panelTwo.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -56,7 +65,7 @@ public class Universe extends JFrame
         add(bottomPanel, BorderLayout.SOUTH);
         topPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         bottomPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        topPanel.add(panelOne);
+        topPanel.add(c);
         topPanel.add(panelTwo);
         topPanel.add(panelThree);
         topPanel.add(panelFour);
@@ -70,7 +79,7 @@ public class Universe extends JFrame
         sliderOne.setPaintLabels(true);
         sliderOne.setLabelTable(sliderOne.createStandardLabels(1));
 
-        panelOne.add(labelOne);
+        //c.add(labelOne);
         //panelTwo.add(labelTwo);
         panelThree.add(labelThree);
         panelFour.add(labelFour);
@@ -80,12 +89,12 @@ public class Universe extends JFrame
         setVisible(true);
 } public void changeLabelVisibility() {
     if (sliderOne.getValue() != 0) {
-        labelOne.setVisible(false);
+        //labelOne.setVisible(false);
         //labelTwo.setVisible(false);
         labelThree.setVisible(false);
         labelFour.setVisible(false);
     } else {
-        labelOne.setVisible(true);
+        //labelOne.setVisible(true);
         //labelTwo.setVisible(true);
         labelThree.setVisible(true);
         labelFour.setVisible(true);
