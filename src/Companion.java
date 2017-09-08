@@ -1,3 +1,12 @@
+/**
+* TutorPanel: Displays an image depending on the value of the JSlider.
+* Recitation Project 1
+* Completion time: 12 hours for the code
+*
+* Author: Carter Kwon
+* Version: 1.0
+*/
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -6,38 +15,35 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+//importing all the necessary libraries
 
-
-public class Companion extends JPanel {
+public class Companion extends JPanel { //class declaration - extending JPanel
 	
 	int status = 0;
-	private BufferedImage name, happy, thinking, worry, sorry;
+	private BufferedImage name, happy, thinking, worry, sorry; //declare images
 	
 	
-	public Companion() throws URISyntaxException {
-		setLayout(new BorderLayout());
+	public Companion() throws URISyntaxException { //constructor - throwing URISyntaxException
 		
-		//setPreferredSize(new Dimension(240,323));
+		setLayout(new BorderLayout()); //set layout to border layout
 		
 		try {
 			name = ImageIO.read(new File(getClass().getResource("Name.png").toURI()));
-
-			happy = ImageIO.read(new File(getClass().getResource("javier_happy.jpg").toURI()));
-			thinking = ImageIO.read(new File(getClass().getResource("javier_thinking.jpg").toURI()));
+			happy = ImageIO.read(new File(getClass().getResource("Connor_Happy_Final.jpg").toURI()));
+			thinking = ImageIO.read(new File(getClass().getResource("Abhi_Thinking_Final.jpg").toURI()));
 			worry = ImageIO.read(new File(getClass().getResource("javier_worried.jpg").toURI()));
 			sorry = ImageIO.read(new File(getClass().getResource("javier_sorry.jpg").toURI()));
 			
-		} catch (IOException | NullPointerException ex) {
+			} catch (IOException | NullPointerException ex) { //catches null pointer & IOException so the program doesn't crash.
 			System.out.print(ex);
-		} 
-		
-	}
+			} 
+		}
 	
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		if(status == 1) {
+		if(status == 1) { //decides which image is displayed depending on slider position.
 			g.drawImage(happy, 0, 0, getWidth(), getHeight(), this);
 		} else if (status == 2) {
 			g.drawImage(thinking, 0, 0, getWidth(), getHeight(), this);
@@ -50,8 +56,9 @@ public class Companion extends JPanel {
 		}
 		
 	}
-	public void changeState(int value) {
+	
+	public void changeState(int value) { //changes the status variable
 		status = value;
-		repaint();
+		repaint(); //ensures the appropriate image is displayed
 	}
 }
