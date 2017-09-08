@@ -19,7 +19,6 @@ public class TutorPanel extends JPanel
 {
 		int panelState = 0;					//The initial state of the JPanel, shows authors name, changes based off slider position
 		JEditorPane tutor = new JEditorPane();	//Initializes the tutor JEditorPane, which will dispay the HTML files
-		boolean flag = false;
 	public TutorPanel()
 	   {
 	    tutor.setEditable(false);			//Sets the JEditorPane to not editable by user to prevent non-functional interference
@@ -34,7 +33,7 @@ public class TutorPanel extends JPanel
 		}
 	public void changeState(int state)			//changeState method, interacts with the slider to change the html file displayed based of the slider number
 	{
-		if(state <= 4 && state >= 1)		//Only has 4 states, 1, 2, 3, and 4
+		if(state <= 4 && state >= 0)		//Only has 4 states, 1, 2, 3, and 4
 		{
 			updatePanel(state);			//Calls the updatePanel method and feeds through slider input
 		}
@@ -60,10 +59,9 @@ public class TutorPanel extends JPanel
 			System.err.println("Caught IOException: " + e.getMessage());
 			tutor.setText("Caught IOException: " + e.getMessage());
 		}
-	  	if(flag == false && panelState == 0)				//An if statement that initially displays the Author of the page, but is inaccessible after the
+	  	if(panelState == 0)				//An if statement that initially displays the Author of the page, but is inaccessible after the
 		{													//first state change via a boolean flag
 			tutor.setText("The Author of this Panel is\n Connor T McBreen");
-			flag = true;
 		}
 	}
 
