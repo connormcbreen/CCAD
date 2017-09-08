@@ -28,11 +28,12 @@ public class Companion extends JPanel { //class declaration - extending JPanel
 		setLayout(new BorderLayout()); //set layout to border layout
 		
 		try {
+			
 			name = ImageIO.read(new File(getClass().getResource("Name.png").toURI()));
 			happy = ImageIO.read(new File(getClass().getResource("Connor_Happy_Final.jpg").toURI()));
 			thinking = ImageIO.read(new File(getClass().getResource("Abhi_Thinking_Final.jpg").toURI()));
-			worry = ImageIO.read(new File(getClass().getResource("javier_worried.jpg").toURI()));
-			sorry = ImageIO.read(new File(getClass().getResource("javier_sorry.jpg").toURI()));
+			worry = ImageIO.read(new File(getClass().getResource("Carter_Worry_Final.jpg").toURI()));
+			sorry = ImageIO.read(new File(getClass().getResource("Carter_Sorry_Final.jpg").toURI()));
 			
 			} catch (IOException | NullPointerException ex) { //catches null pointer & IOException so the program doesn't crash.
 			System.out.print(ex);
