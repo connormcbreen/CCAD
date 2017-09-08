@@ -47,7 +47,7 @@ public class TutorPanel extends JPanel
 		try							//Try statement to open and read an html file, has FileNotFound and IO exceptions
 		{
 			tutor.setContentType("text/html");				//Sets the content type of the JEditorPane for text based HTML files
-	  		tutor.setPage(TutorPanel.class.getResource("resource/P" + state + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
+	  		tutor.setPage(TutorPanel.class.getResource("P" + state + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
 		}
 		catch(FileNotFoundException e)					//File not found exception, in case file doesnt not exist
 		{
