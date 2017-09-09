@@ -10,7 +10,8 @@
 
 import java.awt.*;
 import javax.swing.*;		//imported to access the java swing GUI methods
-import javax.swing.event.*;
+import javax.swing.JEditorPane;
+import javax.swing.text.Document;
 import java.io.*;			//Imported for access to filestream and IO exceptions
 import java.net.*;			//Imported for access to HTML file methods
 import java.util.*;			//Imported for access to Scanner and input methods
@@ -22,7 +23,6 @@ public class TutorPanel extends JPanel
 	public TutorPanel()
 	   {
 	    tutor.setEditable(false);			//Sets the JEditorPane to not editable by user to prevent non-functional interference
-
 		updatePanel(panelState);			//Calls the updatePanel method to update the panel depending on the slider
 
 	    JScrollPane scrollPane = new JScrollPane(tutor);	//Adds the JEditorPane to a scrollPane incase the HTML file is larger then the window
@@ -33,6 +33,7 @@ public class TutorPanel extends JPanel
 		}
 	public void changeState(int state)			//changeState method, interacts with the slider to change the html file displayed based of the slider number
 	{
+		panelState = state;
 		if(state <= 4 && state >= 0)		//Only has 4 states, 1, 2, 3, and 4
 		{
 			updatePanel(state);			//Calls the updatePanel method and feeds through slider input
@@ -42,27 +43,34 @@ public class TutorPanel extends JPanel
 		}
 	}
 
-	public void updatePanel(int state)				//updatePanel method, updates the display on the panel by finding the html file and displaying it
+	public void updatePanel(int state)				//updatePanel method, updates the display on the panel by finding html file and displaying it
 	{
-		try							//Try statement to open and read an html file, has FileNotFound and IO exceptions
+		if(panelState <= 4 && panelState >= 1)
 		{
-			tutor.setContentType("text/html");				//Sets the content type of the JEditorPane for text based HTML files
-	  		tutor.setPage(TutorPanel.class.getResource("P" + state + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
+			try							//Try statement to open and read an html file, has FileNotFound and IO exceptions
+			{
+				Document doc = tutor.getDocument();
+				doc.putProperty(Document.StreamDescriptionProperty, null);	//Clears out the input stream for refreshing the same page multiple times
+				tutor.setContentType("text/html");				//Sets the content type of the JEditorPane for text based HTML files
+	  			tutor.setPage(TutorPanel.class.getResource("resource/P" + state + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
+	  			System.out.println("Confirm");
+
+			}
+			catch(FileNotFoundException e)					//File not found exception, in case file doesnt not exist
+			{
+				System.err.println("P" + state + ".html was not found");
+				tutor.setText("P" + state + ".html was not found");
+			}
+			catch(IOException e)						//IOException if issues occur when opening or closing HTML files
+			{
+				System.err.println("Caught IOException: " + e.getMessage());
+				tutor.setText("Caught IOException: " + e.getMessage());
+			}
 		}
-		catch(FileNotFoundException e)					//File not found exception, in case file doesnt not exist
-		{
-			System.err.println("P" + state + ".html was not found");
-			tutor.setText("P" + state + ".html was not found");
-		}
-		catch(IOException e)						//IOException if issues occur when opening or closing HTML files
-		{
-			System.err.println("Caught IOException: " + e.getMessage());
-			tutor.setText("Caught IOException: " + e.getMessage());
-		}
-	  	if(panelState == 0)				//An if statement that initially displays the Author of the page, but is inaccessible after the
-		{													//first state change via a boolean flag
-			tutor.setText("The Author of this Panel is\n Connor T McBreen");
-		}
+		if(panelState == 0)				//An if statement that initially displays the Author of the page, but is inaccessible after the
+			{													//first state change via a boolean flag
+				tutor.setText("The Author of this Panel is Connor T McBreen");
+			}
 	}
 
 }
