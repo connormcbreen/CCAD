@@ -15,7 +15,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-//importing all the necessary libraries
+//importing all the necessary libraries^^^
 
 public class Companion extends JPanel { //class declaration - extending JPanel
 	
@@ -34,6 +34,7 @@ public class Companion extends JPanel { //class declaration - extending JPanel
 			thinking = ImageIO.read(new File(getClass().getResource("Abhi_Thinking_Final.jpg").toURI()));
 			worry = ImageIO.read(new File(getClass().getResource("Carter_Worry_Final.jpg").toURI()));
 			sorry = ImageIO.read(new File(getClass().getResource("Carter_Sorry_Final.jpg").toURI()));
+			//initialize all the image^^^
 			
 			} catch (IOException | NullPointerException ex) { //catches null pointer & IOException so the program doesn't crash.
 			System.out.print(ex);
