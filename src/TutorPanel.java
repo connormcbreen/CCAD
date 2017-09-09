@@ -52,7 +52,7 @@ public class TutorPanel extends JPanel
 				Document doc = tutor.getDocument();
 				doc.putProperty(Document.StreamDescriptionProperty, null);	//Clears out the input stream for refreshing the same page multiple times
 				tutor.setContentType("text/html");				//Sets the content type of the JEditorPane for text based HTML files
-	  			tutor.setPage(TutorPanel.class.getResource("resource/P" + state + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
+	  			tutor.setPage(TutorPanel.class.getResource("P" + state + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
 	  			System.out.println("Confirm");
 
 			}

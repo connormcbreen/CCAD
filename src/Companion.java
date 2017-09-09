@@ -12,14 +12,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.io.File;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 //importing all the necessary libraries^^^
 
 public class Companion extends JPanel { //class declaration - extending JPanel
 	
-	int status = 0;
+	int status = 0; //status variable
 	private BufferedImage name, happy, thinking, worry, sorry; //declare images
 	
 	
@@ -46,7 +45,7 @@ public class Companion extends JPanel { //class declaration - extending JPanel
 		super.paintComponent(g);
 		
 		if(status == 1) { //decides which image is displayed depending on slider position.
-			g.drawImage(happy, 0, 0, getWidth(), getHeight(), this);
+			g.drawImage(happy, 0, 0, getWidth(), getHeight(), this); //makes sure the width/height match the border
 		} else if (status == 2) {
 			g.drawImage(thinking, 0, 0, getWidth(), getHeight(), this);
 		} else if (status == 3) {
