@@ -31,10 +31,6 @@ public class Companion extends JPanel  { //class declaration - extending JPanel
 		setLayout(new BorderLayout()); //set layout to border layout
 		
 		try {
-			/*JLabel test = new JLabel("poop");
-			Icon icon = new ImageIcon("giphy.gif");
-			gif = new JLabel(icon);
-			add(gif, BorderLayout.CENTER); */
 			
 			name = ImageIO.read(new File(getClass().getResource("Name.png").toURI()));
 			
