@@ -20,10 +20,8 @@ import javax.swing.*;
 public class Companion extends JPanel  { //class declaration - extending JPanel
 	
 	int status = 0; //status variable
-	//private BufferedImage name, happy, thinking, worry, sorry; //declare images
+
 	private BufferedImage name;
-	JLabel gif;
-	Image image;
 	Image happy, thinking, worry, sorry;
 	
 	public Companion() throws URISyntaxException { //constructor - throwing URISyntaxException
@@ -57,12 +55,6 @@ public class Companion extends JPanel  { //class declaration - extending JPanel
 			File sorryFile = new File(sorryURL.getPath());
 			String sorryString = sorryFile.toString();
 			sorry = Toolkit.getDefaultToolkit().createImage(sorryString);
-			
-			/*happy = ImageIO.read(new File(getClass().getResource("Connor_Happy_Final.jpg").toURI()));
-			thinking = ImageIO.read(new File(getClass().getResource("Abhi_Thinking_Final.jpg").toURI()));
-			worry = ImageIO.read(new File(getClass().getResource("Carter_Worry_Final.jpg").toURI()));
-			sorry = ImageIO.read(new File(getClass().getResource("Carter_Sorry_Final.jpg").toURI())); */
-			//initialize all the image^^^
 			
 			} catch (IOException | NullPointerException ex) { //catches null pointer & IOException so the program doesn't crash.
 			System.out.print(ex);
