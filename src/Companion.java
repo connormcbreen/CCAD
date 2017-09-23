@@ -35,7 +35,7 @@ public class Companion extends JPanel  { //class declaration - extending JPanel
 			name = ImageIO.read(new File(getClass().getResource("Name.png").toURI()));
 			
 			//happy
-			URL happyURL = getClass().getResource("Happy.gif");
+			URL happyURL = getClass().getResource("HappyFace.gif");
 			File happyFile = new File(happyURL.getPath());
 			String happyString = happyFile.toString();
 			happy = Toolkit.getDefaultToolkit().createImage(happyString);
