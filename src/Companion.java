@@ -1,10 +1,10 @@
 /**
-* TutorPanel: Displays an image depending on the value of the JSlider.
-* Recitation Project 1
+* TutorPanel: Displays an animation depending on the value of the JSlider.
+* Recitation Project 2
 * Completion time: 12 hours for the code
 *
 * Author: Carter Kwon
-* Version: 1.0
+* Version: 2.0
 */
 
 import java.awt.*;
