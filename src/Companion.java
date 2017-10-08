@@ -1,26 +1,28 @@
 /**
-* TutorPanel: Displays an image depending on the value of the JSlider.
-* Recitation Project 1
+* TutorPanel: Displays an animation depending on the value of the JSlider.
+* Recitation Project 2
 * Completion time: 12 hours for the code
 *
 * Author: Carter Kwon
-* Version: 1.0
+* Version: 2.0
 */
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 //importing all the necessary libraries^^^
 
-public class Companion extends JPanel { //class declaration - extending JPanel
+public class Companion extends JPanel  { //class declaration - extending JPanel
 	
 	int status = 0; //status variable
-	private BufferedImage name, happy, thinking, worry, sorry; //declare images
-	
+
+	private BufferedImage name;
+	Image happy, thinking, worry, sorry;
 	
 	public Companion() throws URISyntaxException { //constructor - throwing URISyntaxException
 		
@@ -29,11 +31,30 @@ public class Companion extends JPanel { //class declaration - extending JPanel
 		try {
 			
 			name = ImageIO.read(new File(getClass().getResource("Name.png").toURI()));
-			happy = ImageIO.read(new File(getClass().getResource("Connor_Happy_Final.jpg").toURI()));
-			thinking = ImageIO.read(new File(getClass().getResource("Abhi_Thinking_Final.jpg").toURI()));
-			worry = ImageIO.read(new File(getClass().getResource("Carter_Worry_Final.jpg").toURI()));
-			sorry = ImageIO.read(new File(getClass().getResource("Carter_Sorry_Final.jpg").toURI()));
-			//initialize all the image^^^
+			
+			//happy
+			URL happyURL = getClass().getResource("HappyFace.gif");
+			File happyFile = new File(happyURL.getPath());
+			String happyString = happyFile.toString();
+			happy = Toolkit.getDefaultToolkit().createImage(happyString);
+			
+			//thinking
+			URL thinkingURL = getClass().getResource("Thinking.gif");
+			File thinkingFile = new File(thinkingURL.getPath());
+			String thinkingString = thinkingFile.toString();
+			thinking = Toolkit.getDefaultToolkit().createImage(thinkingString);
+			
+			//worry
+			URL worryURL = getClass().getResource("Worried.gif");
+			File worryFile = new File(worryURL.getPath());
+			String worryString = worryFile.toString();
+			worry = Toolkit.getDefaultToolkit().createImage(worryString);
+			
+			//sorry
+			URL sorryURL = getClass().getResource("Sad.gif");
+			File sorryFile = new File(sorryURL.getPath());
+			String sorryString = sorryFile.toString();
+			sorry = Toolkit.getDefaultToolkit().createImage(sorryString);
 			
 			} catch (IOException | NullPointerException ex) { //catches null pointer & IOException so the program doesn't crash.
 			System.out.print(ex);

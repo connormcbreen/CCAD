@@ -39,7 +39,7 @@ public class Universe extends JFrame
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
         //Create action listener to listen for changes in the sliders state
