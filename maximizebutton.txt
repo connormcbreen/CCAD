@@ -1,0 +1,23 @@
+ boolean flag = false;
+    private class maximizeButton implements WindowStateListener
+{
+    public void windowStateChanged(WindowEvent event)
+    {
+        int originalState;
+        if(flag == false);
+        {
+        originalState = event.getNewState();
+        flag = true;
+        }
+        if(event.getNewState() == MAXIMIZED_BOTH)
+        {
+        System.out.println("max");
+        tutorPanel.setWindowSize("max");
+        }
+        else if(event.getNewState() == originalState)
+        {
+            System.out.println("min");
+            tutorPanel.setWindowSize("min");
+        }
+    }
+}
