@@ -1,13 +1,18 @@
-//Daniel Davidson
-//9/8/17
-//CSE 360
-//Universe.java
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-
+/**
+ *
+ * @author conno_000
+ */
 import javax.swing.*;
 import java.awt.*;
 import java.net.URISyntaxException;
-
+import java.awt.event.WindowStateListener;
+import java.awt.event.WindowEvent;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -22,7 +27,7 @@ public class Universe extends JFrame
 
     Companion companionPanel = null;
     Assessor assessorPanel = null;
-    TutorPanel tutorPanel = null;
+    Tutor tutorPanel = null;
 
 
     private JPanel panelFour = new JPanel();
@@ -33,13 +38,13 @@ public class Universe extends JFrame
     public Universe()
     {
 
-        tutorPanel = new TutorPanel();
+        tutorPanel = new Tutor();
         assessorPanel = new Assessor();
 
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
 
         //Create action listener to listen for changes in the sliders state
@@ -50,7 +55,7 @@ public class Universe extends JFrame
                     System.out.println(sliderOne.getValue());
                     changeLabelVisibility();
                     //Call change state on each panel class
-                    tutorPanel.changeState(sliderOne.getValue());
+                    //tutorPanel.changeState(sliderOne.getValue());
                     companionPanel.changeState(sliderOne.getValue());
                     assessorPanel.updateState(sliderOne.getValue());
                 }
@@ -79,6 +84,7 @@ public class Universe extends JFrame
         topPanel.add(assessorPanel);
         topPanel.add(panelFour);
         bottomPanel.add(sliderOne);
+        addWindowStateListener(new maximizeButton());
 
         //Style the slider and set to zero to start
         sliderOne.setSnapToTicks(true);
@@ -109,4 +115,30 @@ public class Universe extends JFrame
 
 
     }
+    
+    boolean flag = false;
+    private class maximizeButton implements WindowStateListener
+{
+    public void windowStateChanged(WindowEvent event)
+    {
+        int originalState;
+        if(flag == false);
+        {
+        originalState = event.getNewState();
+        flag = true;
+        }
+        if(event.getNewState() == MAXIMIZED_BOTH)
+        {
+        System.out.println("max");
+        tutorPanel.setWindowSize("max");
+        }
+        else if(event.getNewState() == originalState)
+        {
+            System.out.println("min");
+            tutorPanel.setWindowSize("min");
+        }
+    }
 }
+    
+}
+
