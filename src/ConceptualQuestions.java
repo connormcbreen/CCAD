@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class ConceptualQuestions extends JPanel {
     
         private Tutor tutorPanel;
-	private JButton l1q1;
+	/*private JButton l1q1;
 	private JButton l1q2;
 	private JButton l1q3;
 	private JButton l1q4;
@@ -26,7 +26,7 @@ public class ConceptualQuestions extends JPanel {
 	private JButton l3q2;
 	private JButton l3q3;
 	private JButton l3q4;
-	private JButton l3q5;
+	private JButton l3q5;*/
 	
 	//Answers buttons
 	private JButton Ans1;
@@ -37,52 +37,59 @@ public class ConceptualQuestions extends JPanel {
 	private JButton nextButton;
         private JButton startButton;
         private JButton submit;
+        private JButton goBack;
 	Questions questions;
 	String [] qarray;
 	int state;
+        int temp = 0;
+        String finalAnswer;
+        int currentLesson = 0;
         
         //Label
         public JLabel question;
 	
-	
+                                                                    /////////////////////Anywhere you see this, Connor wrote it
 	public ConceptualQuestions(Tutor tutor) {
 		//setBackground(Color.white);
 		//setLayout(new FlowLayout(FlowLayout.RIGHT));
                // setLayout(new GridLayout(5,5));
-                this.tutorPanel = tutor;
-                setLayout(null);
+                this.tutorPanel = tutor;////////////////
+                setLayout(null);///////////////////
 		questions = new Questions();
 		state = 0;
                 
-		startButton = new JButton("Start Quiz");
-                startButton.setBounds(100, 100, 100, 100);
+		startButton = new JButton("Start Quiz");/////////////////////
+                startButton.setBounds(100, 100, 100, 100);//////////////////////
 		Questions questions = new Questions();
 		String[] test = questions.getQuestion(0, 0);
-		l1q1 = new JButton();
+		//l1q1 = new JButton();
 		
                 question = new JLabel();
 		
 		//Answer buttons
 		Ans1 = new JButton();
-                Ans1.setBounds(25, 25, 100, 50);
+                Ans1.setBounds(25, 25, 100, 50);////////////
 		Ans2 = new JButton();
-                Ans2.setBounds(25, 85, 100, 50);
+                Ans2.setBounds(25, 85, 100, 50);/////////////
 		Ans3 = new JButton();
-                Ans3.setBounds(25, 145, 100, 50);
+                Ans3.setBounds(25, 145, 100, 50);////////////
 		Ans4 = new JButton();
-                Ans4.setBounds(25, 205, 100, 50);
-                submit = new JButton("Submit Answer");
-                submit.setBounds(230, 200, 100, 25);
+                Ans4.setBounds(25, 205, 100, 50);//////////////
+                submit = new JButton("Submit Answer");//////////////////
+                submit.setBounds(230, 200, 100, 25);////////////////////
                 nextButton = new JButton("Next");
-                nextButton.setBounds(230, 260, 100, 25);
+                nextButton.setBounds(230, 260, 100, 25);///////////////
+                goBack = new JButton("Go Back");
+                goBack.setBounds(100, 100, 100, 100);
 		
-                startButton.addActionListener(new buttonListener());
+                startButton.addActionListener(new buttonListener());//////////////////////// CONNOR WROTE FROM HERE
                 Ans1.addActionListener(new buttonListener());
                 Ans2.addActionListener(new buttonListener());
                 Ans3.addActionListener(new buttonListener());
                 Ans4.addActionListener(new buttonListener());
                 submit.addActionListener(new buttonListener());
-                nextButton.addActionListener(new buttonListener());
+                goBack.addActionListener(new buttonListener());
+                nextButton.addActionListener(new buttonListener());//////////////////////// TO HERE
                    
                 
 		add(startButton);
@@ -96,10 +103,9 @@ public class ConceptualQuestions extends JPanel {
 			add(l1q1);
 		}
 	}*/
-        public void updateQuestion(int x, int y)
+        public void updateQuestion(int x, int y)//////////////////////// CONNOR WROTE FROM HERE
         {
             removeAll();
-            updateUI();
             qarray = questions.getQuestion(x, y);
 			Ans1.setText(qarray[1]);
 			Ans2.setText(qarray[2]);
@@ -115,7 +121,13 @@ public class ConceptualQuestions extends JPanel {
                         add(submit);
                         add(nextButton);
                         System.out.print(state);
+                        updateUI();
         }
+       public String getCurrentQuestion(int x, int y, int z)
+        {
+            qarray = questions.getQuestion(x, y);
+            return qarray[z];
+        }///////////////////////////////////////////////////////////// TO HERE
 	
 	/*public void updateQ() 
         {
@@ -201,37 +213,83 @@ public class ConceptualQuestions extends JPanel {
 		
 		public void actionPerformed(ActionEvent event) 
                 {
-                        if(event.getSource() == startButton);
+                        if(event.getSource() == startButton)////////////////////////////// CONNOR WROTE FROM HERE
                         {
+                            currentLesson = tutorPanel.getCurrentLesson();
+                            state = 0;
                             System.out.println(tutorPanel.getCurrentLesson());
-                            if(tutorPanel.getCurrentLesson() == 0)
+                            if(currentLesson == 0)
                             {
                                  question.setBounds(100, 200, 200, 100);
                                  question.setText("You have not selected a lesson yet");
                                  add(question);
                                  updateUI();
                             }
-                            if(tutorPanel.getCurrentLesson() == 1)
+                            else if(currentLesson >= 1 && currentLesson <= 3)
                             {
-                                updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
-                                System.out.println("Start Quiz");    
+                                //System.out.println(tutorPanel.getCurrentLesson());
+                                //System.out.println("Apple");
+                                remove(startButton);
+                                temp = currentLesson - 1;
+                                updateQuestion(temp, state);
+                                //state++;
+                                System.out.println("Banana");    
                             }
                             //updateQuestion(0,0);
      
                         }
+                        if(event.getSource() == Ans1)
+                        {
+                            finalAnswer = getCurrentQuestion(temp, state, 1);
+                        }
+                        if(event.getSource() == Ans2)
+                        {
+                            finalAnswer = getCurrentQuestion(temp, state, 2);
+                        }
+                        if(event.getSource() == Ans3)
+                        {
+                            finalAnswer = getCurrentQuestion(temp, state, 3);
+                        }
+                        if(event.getSource() == Ans4)
+                        {
+                            finalAnswer = getCurrentQuestion(temp, state, 4);
+                        }
                         if(event.getSource() == submit)
                         {
+                         if(finalAnswer == getCurrentQuestion(temp, state, 5))
+                         {
+                             System.out.println("Correct");
                          //call Carters Check Method   
-                        }
+                         }
+                        }/////////////////////////////////////////////////////////////////////////// TO HERE
 			if(event.getSource() == nextButton)
                         {
-                            if (state <= 3)
-                            {
-                            updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
-                            }
                             state++;
+                            if (state < 5)////////////////////////////// CONNOR WROTE FROM HERE
+                            {
+                            temp = currentLesson - 1;
+                            updateQuestion(temp, state);
+                            System.out.println("Orange");
+                            }
+                            else
+                            {
+                                removeAll();
+                                question.setText("You have finished Quiz" + tutorPanel.getCurrentLesson());
+                                add(question);
+                                add(goBack);
+                                updateUI();
+                            }
 				//state = state + 1;
 			}
+                        if(event.getSource() == goBack)
+                        {
+                            removeAll();
+                            add(startButton);
+                            currentLesson = 0;
+                            state = 0;
+                            temp = 0;
+                            updateUI();///////////////////////////TO HERE
+                        }
 			
 		}
 	
