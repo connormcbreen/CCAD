@@ -26,7 +26,8 @@ public class Universe extends JFrame
     private JSlider sliderOne = new JSlider();
 
     Companion companionPanel = null;
-    Assessor assessorPanel = null;
+    //Assessor assessorPanel = null;
+    ConceptualQuestions conceptualQuestions = null;
     Tutor tutorPanel = null;
 
 
@@ -39,8 +40,9 @@ public class Universe extends JFrame
     {
 
         tutorPanel = new Tutor();
-        assessorPanel = new Assessor();
-
+        //assessorPanel = new Assessor();
+        conceptualQuestions = new ConceptualQuestions(tutorPanel);
+        
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
@@ -57,7 +59,7 @@ public class Universe extends JFrame
                     //Call change state on each panel class
                     //tutorPanel.changeState(sliderOne.getValue());
                     companionPanel.changeState(sliderOne.getValue());
-                    assessorPanel.updateState(sliderOne.getValue());
+                    //assessorPanel.updateState(sliderOne.getValue());
                 }
             }
         });
@@ -65,7 +67,8 @@ public class Universe extends JFrame
         //Style the JPanel with borders
         companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         tutorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        assessorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        conceptualQuestions.setBorder(BorderFactory.createLineBorder(Color.black));
+        //assessorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         panelFour.setBorder(BorderFactory.createLineBorder(Color.black));
 
 
@@ -81,7 +84,8 @@ public class Universe extends JFrame
         //add all panels
         topPanel.add(companionPanel);
         topPanel.add(tutorPanel);
-        topPanel.add(assessorPanel);
+        topPanel.add(conceptualQuestions);
+        //topPanel.add(assessorPanel);
         topPanel.add(panelFour);
         bottomPanel.add(sliderOne);
         addWindowStateListener(new maximizeButton());

@@ -35,9 +35,7 @@ public class Tutor extends JPanel
             //tutor = new JPanel();
             setLayout(null);
                        
-            lesson = new JEditorPane();
-
-            
+            lesson = new JEditorPane();           
             l1 = new JButton("Lesson1");
             l1.setBounds(25, 25, 100, 50);
             l2 = new JButton("Lesson2");
@@ -47,8 +45,7 @@ public class Tutor extends JPanel
             next = new JButton("Next");
             prev = new JButton("Previous");
             goBack = new JButton("Go Back");
-
-            
+           
             l1.addActionListener(new buttonListener());
             l2.addActionListener(new buttonListener());
             l3.addActionListener(new buttonListener());
@@ -57,19 +54,15 @@ public class Tutor extends JPanel
             goBack.addActionListener(new buttonListener());
       
             add(l1);
-
             add(l2);
-
-            add(l3);
-           
+            add(l3);   
             scrollPane = new JScrollPane();
-            //scrollPane.setPreferredSize(new Dimension(300,250));
-            //add(scrollPane);
 
 		}
 	public void changeLesson(int state)			//changeState method, interacts with the slider to change the html file displayed based of the slider number
 	{
 		currentLesson = state;
+                System.out.println(currentLesson);
 		if(state <= 3 && state >= 1)		//Only has 4 states, 1, 2, 3, and 4
 		{
 			updatePanel();			//Calls the updatePanel method and feeds through slider input
