@@ -18,9 +18,9 @@ import java.io.*;			//Imported for access to filestream and IO exception
 
 public class Tutor extends JPanel
 {
-		int panelState = 1;					//The initial state of the JPanel, shows authors name, changes based off slider position
+		int subLesson = 1;					//The initial state of the JPanel, shows authors name, changes based off slider position
                 int currentLesson = 0;
-                //JPanel tutor;
+                int panelState = 0;
                 JEditorPane lesson;
                 JScrollPane scrollPane;
                 JButton l1;
@@ -30,7 +30,6 @@ public class Tutor extends JPanel
                 JButton prev;   
                 JButton goBack;
                 String currentSize = "min";
-               
 	public Tutor()
 	   {
             //tutor = new JPanel();
@@ -89,13 +88,13 @@ public class Tutor extends JPanel
 				Document doc = lesson.getDocument();
 				doc.putProperty(Document.StreamDescriptionProperty, null);	//Clears out the input stream for refreshing the same page multiple times
                                 lesson.setContentType("text/html");				//Sets the content type of the JEditorPane for text based HTML files
-	  			lesson.setPage(TutorPanel.class.getResource("Resource/Lesson" + currentLesson +"." + panelState + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
-                                System.out.println("Lesson" + currentLesson +"." + panelState + ".html");
+	  			lesson.setPage(TutorPanel.class.getResource("Lesson" + currentLesson +"." + subLesson + ".html"));	//Finds the local html file and sets the EditorPane to the HTML file
+                                System.out.println("Lesson" + currentLesson +"." + subLesson + ".html");
 			}
 			catch(FileNotFoundException e)					//File not found exception, in case file doesnt not exist
 			{
-				System.err.println("Lesson" + currentLesson +"." + panelState + ".html");
-				lesson.setText("Lesson" + currentLesson +"." + panelState + ".html");
+				System.err.println("Lesson" + currentLesson +"." + subLesson + ".html");
+				lesson.setText("Lesson" + currentLesson +"." + subLesson + ".html");
 			}
 			catch(IOException e)						//IOException if issues occur when opening or closing HTML files
 			{
@@ -106,32 +105,38 @@ public class Tutor extends JPanel
 		if(currentLesson == 0)				//An if statement that initially displays the Author of the page, but is inaccessible after the
 			{													//first state change via a boolean flag
 				lesson.setText("The Author of this Panel is Connor T McBreen");
-                                System.out.println("Lesson" + currentLesson +"." + panelState + ".html");
+                                System.out.println("Lesson" + currentLesson +"." + subLesson + ".html");
 			}
 	}
-public String getWindowSize()
+public int getCurrentLesson()
 {
-    return currentSize;
+    return currentLesson;
 }
 public void setWindowSize(String var)
 {
     currentSize = var;
 }
-private class buttonListener implements ActionListener
+public void resize()
 {
-    public void actionPerformed(ActionEvent event)
+    if(panelState == 0)
     {
-        if(event.getSource() == l1)
-        {
-            lesson = new JEditorPane();
-            remove(l1);
-            remove(l2);
-            remove(l3);
-            updateUI();
-            add(lesson);
-            scrollPane = new JScrollPane(lesson);
-            scrollPane.setLocation(10, 10);
-            if(currentSize.equals("min"))
+        if(currentSize.equals("min"))
+            {
+            l1.setBounds(25, 25, 100, 50);
+            l2.setBounds(25, 100, 100, 50);
+            l3.setBounds(25, 175, 100, 50);
+            }
+            if(currentSize.equals("max"))
+            {
+              l1.setBounds(25, 25, 200, 50);
+              l2.setBounds(25, 100, 200, 50);
+              l3.setBounds(25, 175, 200, 50);
+            }
+        
+    }
+    if(panelState == 1)
+    {
+        if(currentSize.equals("min"))
             {
                 scrollPane.setSize(new Dimension(320, 250));
                 next.setBounds(120, 260, 100, 25);
@@ -145,6 +150,24 @@ private class buttonListener implements ActionListener
                 prev.setBounds(800, 350, 100, 25);
                 goBack.setBounds(800, 400, 100, 25);
             }
+    }
+}
+private class buttonListener implements ActionListener
+{
+    public void actionPerformed(ActionEvent event)
+    {
+        if(event.getSource() == l1)
+        {
+            panelState = 1;
+            lesson = new JEditorPane();
+            remove(l1);
+            remove(l2);
+            remove(l3);
+            updateUI();
+            add(lesson);
+            scrollPane = new JScrollPane(lesson);
+            scrollPane.setLocation(10, 10);
+            resize();
             add(scrollPane);
             changeLesson(1);
             //currentLesson = 1;
@@ -154,6 +177,7 @@ private class buttonListener implements ActionListener
         }
         if(event.getSource() == l2)
         {
+            panelState = 1;
             lesson = new JEditorPane();
             remove(l1);
             remove(l2);
@@ -162,20 +186,7 @@ private class buttonListener implements ActionListener
             add(lesson);
             scrollPane = new JScrollPane(lesson);
             scrollPane.setLocation(10, 10);
-            if(currentSize.equals("min"))
-            {
-                scrollPane.setSize(new Dimension(325, 250));
-                next.setBounds(120, 260, 100, 25);
-                prev.setBounds(10, 260, 100, 25);
-                goBack.setBounds(230, 260, 100, 25);
-            }
-            if(currentSize.equals("max"))
-            {
-                scrollPane.setSize(new Dimension(750, 400));
-                next.setBounds(800, 300, 100, 25);
-                prev.setBounds(800, 350, 100, 25);
-                goBack.setBounds(800, 400, 100, 25);
-            }
+            resize();
             add(scrollPane);
             changeLesson(2);
             //currentLesson = 2;
@@ -185,6 +196,7 @@ private class buttonListener implements ActionListener
         }
         if(event.getSource() == l3)
         {
+            panelState = 1;
             lesson = new JEditorPane();
             remove(l1);
             remove(l2);
@@ -193,20 +205,7 @@ private class buttonListener implements ActionListener
             add(lesson);
             scrollPane = new JScrollPane(lesson);
             scrollPane.setLocation(10, 10);
-            if(currentSize.equals("min"))
-            {
-                scrollPane.setSize(new Dimension(325, 250));
-                next.setBounds(120, 260, 100, 25);
-                prev.setBounds(10, 260, 100, 25);
-                goBack.setBounds(230, 260, 100, 25);
-            }
-            if(currentSize.equals("max"))
-            {
-                scrollPane.setSize(new Dimension(750, 400));
-                next.setBounds(800, 300, 100, 25);
-                prev.setBounds(800, 350, 100, 25);
-                goBack.setBounds(800, 400, 100, 25);
-            }
+            resize();
             add(scrollPane);
             changeLesson(3);
             //currentLesson = 3;
@@ -216,9 +215,9 @@ private class buttonListener implements ActionListener
         }
         if(event.getSource() == next)
         {
-            if((panelState + 1) != 7)
+            if((subLesson + 1) != 7)
             {
-                panelState++;
+                subLesson++;
                 updatePanel();
                 //changeLesson(currentLesson);
                 updateUI();
@@ -226,9 +225,9 @@ private class buttonListener implements ActionListener
         }
         if(event.getSource() == prev)
         {
-            if((panelState - 1) != 0)
+            if((subLesson - 1) != 0)
             {
-                panelState--;
+                subLesson--;
                 updatePanel();
                 //changeLesson(panelState);
                 updateUI();
@@ -246,7 +245,8 @@ private class buttonListener implements ActionListener
             add(l2);
             add(l3);
             currentLesson = 0;
-            panelState = 1;
+            subLesson = 1;
+            panelState = 0;
         }
 
     }

@@ -131,11 +131,13 @@ public class Universe extends JFrame
         {
         System.out.println("max");
         tutorPanel.setWindowSize("max");
+        tutorPanel.resize();
         }
         else if(event.getNewState() == originalState)
         {
             System.out.println("min");
             tutorPanel.setWindowSize("min");
+            tutorPanel.resize();
         }
     }
 }
