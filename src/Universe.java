@@ -42,6 +42,7 @@ public class Universe {
     private JLabel labelFour = new JLabel("Daniel Davidson");
     Companion companionPanel = null;
     //Assessor assessorPanel = null;
+    CardLayoutPanel cardPanel = null;
     ConceptualQuestions conceptualQuestions = null;
     Tutor tutorPanel = null;
     private JPanel panelFour = new JPanel();
@@ -54,6 +55,8 @@ public class Universe {
     public Universe(){
         tutorPanel = new Tutor();
         conceptualQuestions = new ConceptualQuestions(tutorPanel);
+       // assessorPanel = new Assessor();
+        cardPanel = new CardLayoutPanel();
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
@@ -64,6 +67,7 @@ public class Universe {
         tutorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         conceptualQuestions.setBorder(BorderFactory.createLineBorder(Color.black));
         //assessorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        cardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         panelFour.setBorder(BorderFactory.createLineBorder(Color.black));
 
         //Set a default opening size and layout
@@ -151,6 +155,7 @@ public class Universe {
                     panel1.setVisible(false);
                     bottomPanel.setVisible(true);
                     layout.show(container, "2");
+
                 }
             }
         });
@@ -173,8 +178,10 @@ public class Universe {
         //add all panels
         topPanel.add(companionPanel);
         topPanel.add(tutorPanel);
-        topPanel.add(conceptualQuestions);
-        //topPanel.add(assessorPanel);
+        //topPanel.add(conceptualQuestions);
+       // topPanel.add(assessorPanel);
+       // assessorPanel.updateState(1);
+        topPanel.add(cardPanel);
         topPanel.add(panelFour);
         frame.addWindowStateListener(new maximizeButton());
 
@@ -210,5 +217,6 @@ public class Universe {
         }
     }
 }
+
 
 
