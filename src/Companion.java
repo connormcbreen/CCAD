@@ -19,7 +19,7 @@ import javax.swing.*;
 
 public class Companion extends JPanel  { //class declaration - extending JPanel
 	
-	int status = 0; //status variable
+	static int status = 0; //status variable
 
 	private BufferedImage name;
 	Image happy, thinking, worry, sorry;

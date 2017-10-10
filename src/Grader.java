@@ -34,14 +34,22 @@ public class Grader {
 		wrongAnswers = 0;
 	}
 	
-	public void answerCorrect() {
+	public void quizAnswerCorrect() {
 		correctAnswers += 1;
 		totalQuestionsAnswered += 1;
 	}
 	
-	public void answerWrong() {
+	public void comprehensionAnswerCorrect() {
+		avatar.changeState(1);
+	}
+	
+	public void quizAnswerWrong() {
 		wrongAnswers += 1;
 		totalQuestionsAnswered += 1;
+	}
+	
+	public void comprehensionAnswerWrong() {
+		avatar.changeState(4);
 	}
 	
 	public void calculateGrade() {

@@ -35,9 +35,11 @@ public class ConceptualQuestions extends JPanel {
 	private JButton Ans4;
 	
 	private JButton nextButton;
-        private JButton startButton;
-        private JButton submit;
-        private JButton goBack;
+    private JButton startButton;
+    private JButton submit;
+    private JButton goBack;
+    
+    Grader grade = new Grader();
 	Questions questions;
 	String [] qarray;
 	int state;
@@ -129,83 +131,7 @@ public class ConceptualQuestions extends JPanel {
             return qarray[z];
         }///////////////////////////////////////////////////////////// TO HERE
 	
-	/*public void updateQ() 
-        {
-			
-		switch(state)
-		{
-		
-		case 0:
-			qarray = questions.getQuestion(0, 0);
-			l1q1.setText(qarray[0]);
-			Ans1.setText(qarray[1]);
-			Ans2.setText(qarray[2]);
-			Ans3.setText(qarray[3]);
-			Ans4.setText(qarray[4]);
-			
-			add(l1q1);
-			add(Ans1);
-			add(Ans2);
-			add(Ans3);
-			add(Ans4);
-			
-		case 1:
-			qarray = questions.getQuestion(0, 1);
-			l1q1.setText(qarray[0]);
-			Ans1.setText(qarray[1]);
-			Ans2.setText(qarray[2]);
-			Ans3.setText(qarray[3]);
-			Ans4.setText(qarray[4]);
-			
-			add(l1q1);
-			add(Ans1);
-			add(Ans2);
-			add(Ans3);
-			add(Ans4);
-
-		case 2:
-			qarray = questions.getQuestion(0, 2);
-			l1q1.setText(qarray[0]);
-			Ans1.setText(qarray[1]);
-			Ans2.setText(qarray[2]);
-			Ans3.setText(qarray[3]);
-			Ans4.setText(qarray[4]);
-			
-			add(l1q1);
-			add(Ans1);
-			add(Ans2);
-			add(Ans3);
-			add(Ans4);
-		case 3:
-			qarray = questions.getQuestion(0, 3);
-			l1q1.setText(qarray[0]);
-			Ans1.setText(qarray[1]);
-			Ans2.setText(qarray[2]);
-			Ans3.setText(qarray[3]);
-			Ans4.setText(qarray[4]);
-			
-			add(l1q1);
-			add(Ans1);
-			add(Ans2);
-			add(Ans3);
-			add(Ans4);
-
-		case 4:
-			qarray = questions.getQuestion(0, 4);
-			l1q1.setText(qarray[0]);
-			Ans1.setText(qarray[1]);
-			Ans2.setText(qarray[2]);
-			Ans3.setText(qarray[3]);
-			Ans4.setText(qarray[4]);
-			
-			add(l1q1);
-			add(Ans1);
-			add(Ans2);
-			add(Ans3);
-			add(Ans4);
 	
-		}
-	}*/
 	
 	
 	public class buttonListener implements ActionListener {
@@ -259,7 +185,10 @@ public class ConceptualQuestions extends JPanel {
                          if(finalAnswer == getCurrentQuestion(temp, state, 5))
                          {
                              System.out.println("Correct");
-                         //call Carters Check Method   
+                             //call Carters Check Method
+                             grade.comprehensionAnswerCorrect();
+                         }else {
+                        	 grade.comprehensionAnswerWrong();
                          }
                         }/////////////////////////////////////////////////////////////////////////// TO HERE
 			if(event.getSource() == nextButton)
