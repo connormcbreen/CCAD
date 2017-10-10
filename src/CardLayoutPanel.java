@@ -1,5 +1,8 @@
-
-
+/*
+Creator: Daniel Davidson
+Description: This class is designed to be a navigation panel for the calculator, lessons, and profile that will all display
+in the botton left corner of the JFrame. 
+*/
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +11,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class CardLayoutPanel extends  JPanel {
-
+//Creating needed components
     JPanel container = new JPanel();
     JPanel navigatorPanel = new JPanel();
     JPanel quizPanel = new JPanel();
@@ -29,7 +32,7 @@ public class CardLayoutPanel extends  JPanel {
     JLabel scoreLbl = new JLabel("Score");
 
     CardLayout layout = new CardLayout();
-
+//Constructor
     public CardLayoutPanel(){
         Color greenColor = new Color(98, 136, 146);
         setLayout(new BorderLayout());
@@ -50,9 +53,6 @@ public class CardLayoutPanel extends  JPanel {
         calculatorPanel.add(innerCalculatorPanel, BorderLayout.CENTER);
         innerCalculatorPanel.setBackground(Color.white);
 
-
-
-
         profilePanel.add(backBtn3);
         profilePanel.setBackground(greenColor);
         profilePanel.setLayout(new GridLayout(4,1));
@@ -60,19 +60,17 @@ public class CardLayoutPanel extends  JPanel {
         profilePanel.add(emailLbl);
         profilePanel.add(scoreLbl);
 
-
         container.setLayout(layout);
-
+//Assigning each sub panel a name to call in the card layout
         container.add(navigatorPanel,"1");
         container.add(quizPanel, "2");
         container.add(calculatorPanel, "3");
         container.add(profilePanel, "4");
 
-
         add(container);
-
+//Set default panel
         layout.show(container, "1");
-
+//Create all needed action listeners
         backBtn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
