@@ -179,6 +179,7 @@ private class buttonListener implements ActionListener
         {
             if((subLesson + 1) != 7)
             {
+                UserProgress.completeLesson(currentLesson, subLesson);
                 subLesson++;
                 updatePanel();
                 updateUI();
