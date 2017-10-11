@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 public class CardLayoutPanel extends  JPanel {
 //Creating needed components
-    JPanel container = new JPanel();
+    static JPanel container = new JPanel();
     JPanel navigatorPanel = new JPanel();
     JPanel quizPanel = new JPanel();
     JPanel calculatorPanel = new JPanel();
@@ -31,9 +31,13 @@ public class CardLayoutPanel extends  JPanel {
     JLabel emailLbl = new JLabel("Email:");
     JLabel scoreLbl = new JLabel("Score");
 
-    CardLayout layout = new CardLayout();
+    static CardLayout layout = new CardLayout();
 //Constructor
-    public CardLayoutPanel(){
+    public CardLayoutPanel()
+    {   
+    }
+    public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof)
+    {
         Color greenColor = new Color(98, 136, 146);
         setLayout(new BorderLayout());
         navigatorPanel.setLayout(new GridLayout(3,1));
@@ -41,8 +45,8 @@ public class CardLayoutPanel extends  JPanel {
         navigatorPanel.add(calculatorBtn);
         navigatorPanel.add(quizBtn);
 
-        quizPanel.add(backBtn1);
-        quizPanel.setBackground(greenColor);
+        //quizPanel.add(backBtn1);
+        //quizPanel.setBackground(greenColor);
 
         calculatorPanel.setLayout(new BorderLayout());
         calculatorPanel.add(backBtn2, BorderLayout.NORTH);
@@ -63,7 +67,7 @@ public class CardLayoutPanel extends  JPanel {
         container.setLayout(layout);
 //Assigning each sub panel a name to call in the card layout
         container.add(navigatorPanel,"1");
-        container.add(quizPanel, "2");
+        container.add(quiz, "2");
         container.add(calculatorPanel, "3");
         container.add(profilePanel, "4");
 
@@ -115,6 +119,8 @@ public class CardLayoutPanel extends  JPanel {
         setVisible(true);
 
     }
-
-
+    public static void resetPanel()
+        {
+            layout.show(container, "1");
+        }
 }

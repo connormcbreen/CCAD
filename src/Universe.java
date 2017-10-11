@@ -5,7 +5,6 @@ Date: 10/2/2017
 Description: This class contains a CardLayout that holds two main JPanels, the first is a login screen that is used to
 hold user information for later use, the second is the main lesson frame consisting of small JPanels with their own functionalities.
 Estimated hours: 12
-
 */
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -42,9 +41,11 @@ public class Universe {
     private JLabel labelFour = new JLabel("Daniel Davidson");
     Companion companionPanel = null;
     //Assessor assessorPanel = null;
+    Calculator calc = null;
     CardLayoutPanel cardPanel = null;
-    ConceptualQuestions conceptualQuestions = null;
+    Quiz quiz = null;
     Tutor tutorPanel = null;
+    Profile userProfile = null;
     private JPanel panelFour = new JPanel();
     private JPanel bottomPanel = new JPanel();
     private JPanel topPanel = new JPanel();
@@ -54,9 +55,10 @@ public class Universe {
     //Constructor
     public Universe(){
         tutorPanel = new Tutor();
-        conceptualQuestions = new ConceptualQuestions(tutorPanel);
+        quiz = new Quiz(tutorPanel);
+        userProfile = new Profile();
        // assessorPanel = new Assessor();
-        cardPanel = new CardLayoutPanel();
+        cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
@@ -65,7 +67,7 @@ public class Universe {
         //Style the individual JPanel with borders
         companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         tutorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        conceptualQuestions.setBorder(BorderFactory.createLineBorder(Color.black));
+        quiz.setBorder(BorderFactory.createLineBorder(Color.black));
         //assessorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         cardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         panelFour.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -146,7 +148,6 @@ public class Universe {
                     titleLbl.setText("Some fields appear to be missing");
                     titleLbl.setForeground(Color.white);
                 }else {
-                    Profile userProfile = new Profile();
                     userProfile.name = nameEntry.getText();
                     userProfile.email = emailEntry.getText();
 
@@ -217,6 +218,4 @@ public class Universe {
         }
     }
 }
-
-
 

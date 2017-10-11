@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
- * @author conno_000
- */
+* Tutor.Java loads HTML files into a JScrollPane to display previously created
+* lesson slides in order to teach a subject.
+* (Recitation Project 3
+* Completion time: 5
+*
+* @author Connor McBreen
+* @version version 2.0
+*/
 import java.awt.*;
 import javax.swing.*;		//imported to access the java swing GUI methods
 import javax.swing.JEditorPane;
@@ -52,12 +51,11 @@ public class Tutor extends JPanel
             next.addActionListener(new buttonListener());
             prev.addActionListener(new buttonListener());
             goBack.addActionListener(new buttonListener());
-      
+            
             add(l1);
             add(l2);
             add(l3);   
             scrollPane = new JScrollPane();
-
 		}
 	public void changeLesson(int state)			//changeState method, interacts with the slider to change the html file displayed based of the slider number
 	{
@@ -71,7 +69,7 @@ public class Tutor extends JPanel
 		{
 		}
 	}
-
+        
 	public void updatePanel()				//updatePanel method, updates the display on the panel by finding html file and displaying it
 	{
 		if(currentLesson <= 3 && currentLesson >= 1)
@@ -101,14 +99,17 @@ public class Tutor extends JPanel
                                 System.out.println("Lesson" + currentLesson +"." + subLesson + ".html");
 			}
 	}
+        
 public int getCurrentLesson()
 {
     return currentLesson;
 }
+
 public void setWindowSize(String var)
 {
     currentSize = var;
 }
+
 public void resize()
 {
     if(panelState == 0)
@@ -125,7 +126,6 @@ public void resize()
               l2.setBounds(25, 100, 200, 50);
               l3.setBounds(25, 175, 200, 50);
             }
-        
     }
     if(panelState == 1)
     {
@@ -145,6 +145,7 @@ public void resize()
             }
     }
 }
+
 private class buttonListener implements ActionListener
 {
     public void actionPerformed(ActionEvent event)
@@ -163,7 +164,6 @@ private class buttonListener implements ActionListener
             resize();
             add(scrollPane);
             changeLesson(1);
-            //currentLesson = 1;
             add(next);
             add(prev);
             add(goBack);
@@ -182,7 +182,6 @@ private class buttonListener implements ActionListener
             resize();
             add(scrollPane);
             changeLesson(2);
-            //currentLesson = 2;
             add(next);
             add(prev);
             add(goBack);
@@ -201,7 +200,6 @@ private class buttonListener implements ActionListener
             resize();
             add(scrollPane);
             changeLesson(3);
-            //currentLesson = 3;
             add(next);
             add(prev);
             add(goBack);
@@ -212,7 +210,6 @@ private class buttonListener implements ActionListener
             {
                 subLesson++;
                 updatePanel();
-                //changeLesson(currentLesson);
                 updateUI();
             }
         }
@@ -222,7 +219,6 @@ private class buttonListener implements ActionListener
             {
                 subLesson--;
                 updatePanel();
-                //changeLesson(panelState);
                 updateUI();
             }
         }
@@ -241,12 +237,6 @@ private class buttonListener implements ActionListener
             subLesson = 1;
             panelState = 0;
         }
-
-    }
-    
-    
+    } 
 }
-
-
 }
-
