@@ -50,6 +50,7 @@ public class Grader {
 	
 	public void comprehensionAnswerWrong() {
 		avatar.changeState(4);
+		System.out.println("comp answer wrong");
 	}
 	
 	public void calculateGrade() {

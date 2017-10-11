@@ -35,7 +35,7 @@ public class Quiz extends JPanel {
         private JButton submit;
         private JButton goBack;
         private JButton returnToMenu;
-       // Grader grade = new Grader();
+       Grader grade = new Grader();
 	Questions questions;
 	String [] qarray;
 	int state;
@@ -202,11 +202,11 @@ public class Quiz extends JPanel {
                          {
                             System.out.println("Correct");
                              //call Carters Check Method
-                             //grade.comprehensionAnswerCorrect();
+                             grade.comprehensionAnswerCorrect();
                          }
                          else 
                          {
-                             //grade.comprehensionAnswerWrong();
+                             grade.comprehensionAnswerWrong();
                          }
                         }
 			if(event.getSource() == nextButton)

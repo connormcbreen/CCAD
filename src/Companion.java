@@ -19,7 +19,7 @@ import javax.swing.*;
 
 public class Companion extends JPanel  { //class declaration - extending JPanel
 	
-	static int status = 0; //status variable
+	static int status = 1; //status variable
 
 	private BufferedImage name;
 	Image happy, thinking, worry, sorry;
@@ -82,5 +82,10 @@ public class Companion extends JPanel  { //class declaration - extending JPanel
 	public void changeState(int value) { //changes the status variable
 		status = value;
 		repaint(); //ensures the appropriate image is displayed
+		System.out.print(status);
+	}
+	
+	public int getStatus() {
+		return status;
 	}
 }

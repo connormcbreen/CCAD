@@ -184,7 +184,7 @@ public class ConceptualQuestions extends JPanel {
                         {
                          if(finalAnswer == getCurrentQuestion(temp, state, 5))
                          {
-                             System.out.println("Correct");
+                             System.out.println("Crect");
                              //call Carters Check Method
                              grade.comprehensionAnswerCorrect();
                          }else {
