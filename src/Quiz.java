@@ -40,7 +40,7 @@ public class Quiz extends JPanel {
 	String [] qarray;
 	int state;
         String finalAnswer;
-        int panelState = 0;
+        int panelState;
         String currentSize;
         
         //Label
@@ -53,11 +53,11 @@ public class Quiz extends JPanel {
 		questions = new Questions();
 		state = 0;
                 currentSize = "min";
-                
+                panelState = 0;
 		startButton = new JButton("Start Quiz");
                 startButton.setBounds(100, 100, 100, 50);
                 returnToMenu = new JButton("Return to Menu");
-                returnToMenu.setBounds(100, 200, 100, 50);
+                returnToMenu.setBounds(100, 200, 200, 50);
                 questions = new Questions();
 		
                 alert = new JLabel();
@@ -118,14 +118,14 @@ public class Quiz extends JPanel {
      {
             if(currentSize.equals("min"))
             {
-                alert.setBounds(75, 200, 200, 50);
+                alert.setBounds(75, 25, 200, 50);
                 startButton.setBounds(100, 100, 100, 50);
                 goBack.setBounds(100, 100, 100, 100);
-                returnToMenu.setBounds(100, 200, 100, 50);
+                returnToMenu.setBounds(100, 200, 200, 50);
             }
             if(currentSize.equals("max"))
             {
-                alert.setBounds(75, 200, 200, 50);
+                alert.setBounds(75, 25, 200, 50);
                 startButton.setBounds(100, 100, 200, 50);
                 goBack.setBounds(100, 100, 200, 50);
                 returnToMenu.setBounds(100, 200, 200, 50);
@@ -220,8 +220,8 @@ public class Quiz extends JPanel {
                             else
                             {
                                 removeAll();
-                                resize();
                                 panelState = 0;
+                                resize();
                                 alert.setText("You have finished Quiz " + tutorPanel.getCurrentLesson());
                                 add(alert);
                                 add(goBack);

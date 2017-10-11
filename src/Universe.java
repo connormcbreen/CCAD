@@ -57,8 +57,9 @@ public class Universe {
         tutorPanel = new Tutor();
         quiz = new Quiz(tutorPanel);
         userProfile = new Profile();
-       // assessorPanel = new Assessor();
+        calc = new Calculator();
         cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
+       // assessorPanel = new Assessor();
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
@@ -83,7 +84,6 @@ public class Universe {
         //Setting the default panel to be login panel upon first load
         layout.show(container, "1");
 
-
         frame.add(container);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
@@ -92,6 +92,7 @@ public class Universe {
        setupLoginFrame();
 
        setupMainFrame();
+       
     }
 
 
@@ -156,7 +157,6 @@ public class Universe {
                     panel1.setVisible(false);
                     bottomPanel.setVisible(true);
                     layout.show(container, "2");
-
                 }
             }
         });

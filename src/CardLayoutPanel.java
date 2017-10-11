@@ -27,8 +27,8 @@ public class CardLayoutPanel extends  JPanel {
     JButton calculatorBtn = new JButton("Calculator");
     JButton quizBtn = new JButton("Quiz");
     Profile user = new Profile();
-    JLabel nameLbl = new JLabel("Name:");
-    JLabel emailLbl = new JLabel("Email:");
+    JLabel nameLbl;
+    JLabel emailLbl;
     JLabel scoreLbl = new JLabel("Score");
 
     static CardLayout layout = new CardLayout();
@@ -44,6 +44,9 @@ public class CardLayoutPanel extends  JPanel {
         navigatorPanel.add(profileBtn);
         navigatorPanel.add(calculatorBtn);
         navigatorPanel.add(quizBtn);
+        
+         nameLbl = new JLabel("Name:" + prof.getName());
+         emailLbl = new JLabel("Email:" + prof.getEmail());
 
         //quizPanel.add(backBtn1);
         //quizPanel.setBackground(greenColor);
@@ -68,7 +71,7 @@ public class CardLayoutPanel extends  JPanel {
 //Assigning each sub panel a name to call in the card layout
         container.add(navigatorPanel,"1");
         container.add(quiz, "2");
-        container.add(calculatorPanel, "3");
+        container.add(calc, "3");
         container.add(profilePanel, "4");
 
         add(container);
