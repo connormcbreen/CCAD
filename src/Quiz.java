@@ -31,13 +31,14 @@ public class Quiz extends JPanel {
 	private JButton Ans4;
 	
 	private JButton nextButton;
-        private JButton startButton;
-        private JButton submit;
-        private JButton goBack;
-        private JButton returnToMenu;
-       Grader grade = new Grader();
+    private JButton startButton;
+    private JButton submit;
+    private JButton goBack;
+    private JButton returnToMenu;
+    Grader grade = new Grader();
 	Questions questions;
 	String [] qarray;
+	TextualFeedback textPopup = new TextualFeedback();
 	int state;
         String finalAnswer;
         int panelState;
@@ -203,10 +204,12 @@ public class Quiz extends JPanel {
                             System.out.println("Correct");
                              //call Carters Check Method
                              grade.comprehensionAnswerCorrect();
+                             textPopup.infoBox("Woo hoo! You got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
                          {
                              grade.comprehensionAnswerWrong();
+                             textPopup.infoBox("Uh oh... That doesn't look right. Try again! You can do it!", "Everybody makes mistakes.");
                          }
                         }
 			if(event.getSource() == nextButton)

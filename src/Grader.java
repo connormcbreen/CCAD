@@ -16,48 +16,67 @@ public class Grader {
 		}
 	}
 	
+	//called at the end of a quiz and calculates the user score and changes the avatar accordingly
 	public void changeAvatarBasedOnGrade() {
 		calculateGrade();
-		if(totalGrade>=80) { //happy
+		
+		if(totalGrade>=80) {
+			//happy
 			avatar.changeState(1);
-		} else if(totalGrade >= 50 && totalGrade < 80) { //worry
+		} else if(totalGrade >= 50 && totalGrade < 80) {
+			//worry
 			avatar.changeState(3);
-		} else { //sorry
+		} else {
+			//sorry
 			avatar.changeState(4);
 		}
+		System.out.println("calculate grade and change avatar");
 	}
 	
+	//reset all the variables
 	public void resetEverything() {
 		totalGrade = 0;
 		totalQuestionsAnswered = 0;
 		correctAnswers = 0;
 		wrongAnswers = 0;
+		System.out.println("reset all fields");
 	}
 	
+	//used for quizzes, not comprehension questions
 	public void quizAnswerCorrect() {
 		correctAnswers += 1;
 		totalQuestionsAnswered += 1;
+		System.out.println("quiz answer right, increased right question count");
 	}
 	
+	//used for comprehension questions, not quizzes
 	public void comprehensionAnswerCorrect() {
 		avatar.changeState(1);
+		System.out.println("comprehension answer right");
 	}
 	
+	//used for quizzes, not comprehension questions
 	public void quizAnswerWrong() {
 		wrongAnswers += 1;
 		totalQuestionsAnswered += 1;
+		System.out.println("quiz answer wrong, increased wrong question count");
 	}
 	
+	//used for comprehension questions, not quizzes
 	public void comprehensionAnswerWrong() {
 		avatar.changeState(4);
-		System.out.println("comp answer wrong");
+		System.out.println("comprehension answer wrong");
 	}
 	
+	//calculates the total grade
 	public void calculateGrade() {
 		totalGrade = (correctAnswers/totalQuestionsAnswered) * 100;
+		System.out.println("calculating grade");
 	}
 	
+	//returns the user's grade
 	public float getGrade() {
+		System.out.print("grade = " + totalGrade);
 		return totalGrade;
 	}
 }
