@@ -59,7 +59,7 @@ public class Universe {
         userProfile = new Profile();
         calc = new Calculator();
         cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
-       // assessorPanel = new Assessor();
+        // assessorPanel = new Assessor();
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
@@ -72,7 +72,8 @@ public class Universe {
         //assessorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         cardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         panelFour.setBorder(BorderFactory.createLineBorder(Color.black));
-
+        Color greenColor = new Color(98, 136, 146);
+        panelFour.setBackground(greenColor);
         //Set a default opening size and layout
         frame.setPreferredSize(new Dimension(700,700));
         container.setLayout(layout);
@@ -89,10 +90,10 @@ public class Universe {
         frame.pack();
         frame.setVisible(true);
 
-       setupLoginFrame();
+        setupLoginFrame();
 
-       setupMainFrame();
-       
+        setupMainFrame();
+
     }
 
 
@@ -149,11 +150,14 @@ public class Universe {
                     titleLbl.setText("Some fields appear to be missing");
                     titleLbl.setForeground(Color.white);
                 }else {
-                    userProfile.name = nameEntry.getText();
-                    userProfile.email = emailEntry.getText();
+                    userProfile.setName(nameEntry.getText());
+                    userProfile.setEmail(emailEntry.getText());
 
-                    System.out.println("\n User name is: " + userProfile.name);
-                    System.out.println("User email is: " + userProfile.email);
+                    System.out.println("\n User name is: " + userProfile.getName());
+                    System.out.println("User email is: " + userProfile.getEmail());
+                    cardPanel.nameLbl.setText("Name: " + userProfile.getName());
+                    cardPanel.emailLbl.setText("Email: " + userProfile.getEmail());
+
                     panel1.setVisible(false);
                     bottomPanel.setVisible(true);
                     layout.show(container, "2");
@@ -180,8 +184,8 @@ public class Universe {
         topPanel.add(companionPanel);
         topPanel.add(tutorPanel);
         //topPanel.add(conceptualQuestions);
-       // topPanel.add(assessorPanel);
-       // assessorPanel.updateState(1);
+        // topPanel.add(assessorPanel);
+        // assessorPanel.updateState(1);
         topPanel.add(cardPanel);
         topPanel.add(panelFour);
         frame.addWindowStateListener(new maximizeButton());
