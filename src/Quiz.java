@@ -31,16 +31,16 @@ public class Quiz extends JPanel {
 	private JButton Ans4;
 	
 	private JButton nextButton;
-    private JButton startButton;
-    private JButton submit;
-    private JButton goBack;
-    private JButton returnToMenu;
-    Grader grade = new Grader();
+        private JButton startButton;
+        private JButton submit;
+        private JButton goBack;
+        private JButton returnToMenu;
+        private JButton showFormulaSheet;
+        Grader grade = new Grader();
 	Questions questions;
 	String [] qarray;
-	
 	int state;
-        String finalAnswer;
+        String finalAnswer = "";
         int panelState;
         String currentSize;
         
@@ -60,10 +60,11 @@ public class Quiz extends JPanel {
                 returnToMenu = new JButton("Return to Menu");
                 returnToMenu.setBounds(100, 200, 200, 50);
                 questions = new Questions();
-		
+		showFormulaSheet = new JButton("Formula Sheet");
                 alert = new JLabel();
                 question = new JTextArea();
-		
+                TextualFeedback textPopup = new TextualFeedback();
+
 		//Answer buttons
 		Ans1 = new JButton();
 		Ans2 = new JButton();
@@ -82,6 +83,7 @@ public class Quiz extends JPanel {
                 goBack.addActionListener(new buttonListener());
                 nextButton.addActionListener(new buttonListener());
                 returnToMenu.addActionListener(new buttonListener());
+                showFormulaSheet.addActionListener(new buttonListener());
 		add(startButton);
                 add(returnToMenu);
 	}
@@ -101,6 +103,7 @@ public class Quiz extends JPanel {
 			add(Ans4);
                         add(submit);
                         add(nextButton);
+                        add(showFormulaSheet);
                         System.out.print(state);
                         updateUI();
         }
@@ -142,8 +145,9 @@ public class Quiz extends JPanel {
                 Ans3.setBounds(25, 145, 100, 50);
                 Ans4.setBounds(25, 205, 100, 50);
                 question.setBounds(150, 25, 175, 100);
-                submit.setBounds(230, 200, 100, 25);
-                nextButton.setBounds(230, 260, 100, 25);
+                submit.setBounds(200, 220, 130, 25);
+                nextButton.setBounds(200, 250, 130, 25);
+                showFormulaSheet.setBounds(200, 170, 130, 25);
             }
             if(currentSize.equals("max"))
             {
@@ -152,12 +156,12 @@ public class Quiz extends JPanel {
                 Ans3.setBounds(25, 185, 200, 50);
                 Ans4.setBounds(25, 265, 200, 50);
                 question.setBounds(450, 25, 350, 200);
-                submit.setBounds(470, 265, 200, 50);
-                nextButton.setBounds(470, 345, 200, 50);
+                submit.setBounds(470, 345, 200, 50);
+                nextButton.setBounds(470, 425, 200, 50);
+                showFormulaSheet.setBounds(470, 265, 200, 50);
             }
     }
 }
-       
     public class buttonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) 
                 {
@@ -204,12 +208,12 @@ public class Quiz extends JPanel {
                             System.out.println("Correct");
                              //call Carters Check Method
                              grade.comprehensionAnswerCorrect();
-                             TextualFeedback.infoBox("Woo hoo! You got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
+                             TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
                          {
                              grade.comprehensionAnswerWrong();
-                             TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again! You can do it!", "Everybody makes mistakes.");
+                             TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
 			if(event.getSource() == nextButton)
@@ -217,8 +221,11 @@ public class Quiz extends JPanel {
                             state++;
                             if (state < 5)
                             {
-                            resize();
-                            updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
+                                resize();
+                                if(tutorPanel.getCurrentLesson() != 0)
+                                {
+                                updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
+                                }
                             }
                             else
                             {
@@ -239,6 +246,10 @@ public class Quiz extends JPanel {
                             add(returnToMenu);
                             state = 0;
                             updateUI();
+                        }
+                        if(event.getSource() == showFormulaSheet)
+                        {
+                            Tutor.showFormulaSheet();
                         }
                         if(event.getSource() == returnToMenu)
                         {
