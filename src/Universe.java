@@ -59,7 +59,7 @@ public class Universe {
         userProfile = new Profile();
         calc = new Calculator();
         cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
-       // assessorPanel = new Assessor();
+        // assessorPanel = new Assessor();
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
@@ -89,10 +89,10 @@ public class Universe {
         frame.pack();
         frame.setVisible(true);
 
-       setupLoginFrame();
+        setupLoginFrame();
 
-       setupMainFrame();
-       
+        setupMainFrame();
+
     }
 
 
@@ -181,8 +181,8 @@ public class Universe {
         topPanel.add(companionPanel);
         topPanel.add(tutorPanel);
         //topPanel.add(conceptualQuestions);
-       // topPanel.add(assessorPanel);
-       // assessorPanel.updateState(1);
+        // topPanel.add(assessorPanel);
+        // assessorPanel.updateState(1);
         topPanel.add(cardPanel);
         topPanel.add(panelFour);
         frame.addWindowStateListener(new maximizeButton());
