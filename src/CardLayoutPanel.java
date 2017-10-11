@@ -11,13 +11,14 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class CardLayoutPanel extends  JPanel {
-//Creating needed components
+    //Creating needed components
     static JPanel container = new JPanel();
     JPanel navigatorPanel = new JPanel();
     JPanel quizPanel = new JPanel();
     JPanel calculatorPanel = new JPanel();
     JPanel profilePanel = new JPanel();
     JPanel innerCalculatorPanel = new JPanel();
+    JPanel logoutPanel = new JPanel();
 
     JButton backBtn1 = new JButton("Back");
     JButton backBtn2 = new JButton("Back");
@@ -26,27 +27,36 @@ public class CardLayoutPanel extends  JPanel {
     JButton profileBtn = new JButton("Profile");
     JButton calculatorBtn = new JButton("Calculator");
     JButton quizBtn = new JButton("Quiz");
+    JButton logout = new JButton("Logout");
+    JButton deleteAccount = new JButton("Delete Account");
+
     Profile user = new Profile();
     JLabel nameLbl;
     JLabel emailLbl;
     JLabel scoreLbl = new JLabel("Score");
 
     static CardLayout layout = new CardLayout();
-//Constructor
+    //Constructor
     public CardLayoutPanel()
-    {   
+    {
     }
     public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof)
     {
         Color greenColor = new Color(98, 136, 146);
+        navigatorPanel.setBackground(greenColor);
         setLayout(new BorderLayout());
-        navigatorPanel.setLayout(new GridLayout(3,1));
+        navigatorPanel.setLayout(new GridLayout(4,1));
         navigatorPanel.add(profileBtn);
         navigatorPanel.add(calculatorBtn);
         navigatorPanel.add(quizBtn);
-        
-         nameLbl = new JLabel("Name:" + prof.getName());
-         emailLbl = new JLabel("Email:" + prof.getEmail());
+        navigatorPanel.add(logoutPanel);
+        logoutPanel.setLayout(new GridLayout(1,2));
+        logoutPanel.setBackground(greenColor);
+        logoutPanel.add(logout);
+        logoutPanel.add(deleteAccount);
+
+        nameLbl = new JLabel("Name:" + prof.getName());
+        emailLbl = new JLabel("Email:" + prof.getEmail());
 
         //quizPanel.add(backBtn1);
         //quizPanel.setBackground(greenColor);
@@ -81,7 +91,7 @@ public class CardLayoutPanel extends  JPanel {
         backBtn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            layout.show(container, "1");
+                layout.show(container, "1");
 
             }
         });
@@ -118,12 +128,24 @@ public class CardLayoutPanel extends  JPanel {
                 layout.show(container, "2");
             }
         });
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Universe newUniverse = new Universe();
 
+            }
+        });
+        deleteAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Universe newUniverse = new Universe();
+            }
+        });
         setVisible(true);
 
     }
     public static void resetPanel()
-        {
-            layout.show(container, "1");
-        }
+    {
+        layout.show(container, "1");
+    }
 }
