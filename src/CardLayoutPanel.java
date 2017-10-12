@@ -1,7 +1,12 @@
 /*
-Creator: Daniel Davidson
-Description: This class is designed to be a navigation panel for the calculator, lessons, and profile that will all display
-in the botton left corner of the JFrame. 
+Description: This class is used to navigate through other Jpanels needed for the main tutor panel including the calculator,
+profile, and quiz panels.
+ Assignment number: Project 3
+ Recitation: Friday 12:55 p.m.
+ Team number: 2
+ author: Daniel Davidson
+ Completeion time: 2 hours
+ Version: 2.0
 */
 import java.awt.*;
 import java.awt.event.ActionEvent;
