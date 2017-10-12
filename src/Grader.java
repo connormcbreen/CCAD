@@ -2,7 +2,7 @@
 * Grader is a class that is used when the program asks the user questions. It can be used on quizzes or comprehension questions.
 * This class changes the avatar’s state based upon user’s answers.
 * Assignment number: Recitation Project 3
-* Completion time: 10
+* Completion time: 5
 * 
 * @author Carter
 * @version 1.0
