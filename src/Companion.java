@@ -1,10 +1,10 @@
-/**
-* TutorPanel: Displays an animation depending on the value of the JSlider.
-* Recitation Project 2
-* Completion time: 12 hours for the code
-*
-* Author: Carter Kwon
-* Version: 2.0
+/** 
+* Companion class sets up an avatar that can be changed based on the variable “state”.
+* Assignment number: Recitation Project 3
+* Completion time: 20
+* 
+* @author Carter
+* @version 3.0
 */
 
 import java.awt.*;
@@ -19,14 +19,17 @@ import javax.swing.*;
 
 public class Companion extends JPanel  { //class declaration - extending JPanel
 	
-	static int status = 1; //status variable
+	//status variable, needs to be static so it's not dependent on one instance
+	static int status = 1;
 
 	private BufferedImage name;
 	Image happy, thinking, worry, sorry;
 	
-	public Companion() throws URISyntaxException { //constructor - throwing URISyntaxException
+	//constructor - throwing URISyntaxException
+	public Companion() throws URISyntaxException {
 		
-		setLayout(new BorderLayout()); //set layout to border layout
+		//set layout to border layout
+		setLayout(new BorderLayout());
 		
 		try {
 			
@@ -62,6 +65,7 @@ public class Companion extends JPanel  { //class declaration - extending JPanel
 		}
 	
 	
+	//method that displays appropriate avatar gif
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
@@ -76,15 +80,16 @@ public class Companion extends JPanel  { //class declaration - extending JPanel
 		} else {
 			g.drawImage(name, 0, 0, getWidth(), getHeight(), this);
 		}
-		
 	}
 	
-	public void changeState(int value) { //changes the status variable
+	//changes the status variable
+	public void changeState(int value) {
 		status = value;
 		repaint(); //ensures the appropriate image is displayed
 		System.out.print(status);
 	}
 	
+	//helpful method for debugging
 	public int getStatus() {
 		return status;
 	}

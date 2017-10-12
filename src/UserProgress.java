@@ -1,3 +1,12 @@
+/** 
+* UserProgress is used to keep track of the user’s progress throughout the system. It changes the value of the booleans as the user completes lessons/sections.
+* Assignment number: Recitation Project 3
+* Completion time: 5
+* 
+* @author Carter
+* @version 1.0
+*/
+
 //class to track the users progress in the system
 public class UserProgress {
 	

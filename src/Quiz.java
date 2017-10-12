@@ -3,7 +3,7 @@
 * using previously created questions corresponding to the lessons and
 * checking the correct answer with a submit button
 * Recitation Project 3
-* Completion time: 5
+* Completion time: 5 hours
 *
 * @author Connor McBreen
 * @version version 1.0

@@ -1,3 +1,12 @@
+/** 
+* TextualFeedback creates a static method that can be used throughout the system to easily display text-based pop ups.
+* Assignment number: Recitation Project 3
+* Completion time: 1
+* 
+* @author Carter
+* @version 1.0
+*/
+
 import javax.swing.*;
 
 public class TextualFeedback {
