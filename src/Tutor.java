@@ -1,39 +1,39 @@
 /**
 * Tutor.Java loads HTML files into a JScrollPane to display previously created
 * lesson slides in order to teach a subject.
-* (Recitation Project 3
-* Completion time: 5
+* Recitation Project 3
+* Completion time: 7 hours
 *
 * @author Connor McBreen
 * @version version 2.0
 */
 import java.awt.*;
-import javax.swing.*;		//imported to access the java swing GUI methods
+import javax.swing.*;		
 import javax.swing.JEditorPane;
 import javax.swing.text.Document;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;			//Imported for access to filestream and IO exception
+import java.io.*;			
 
 public class Tutor extends JPanel
 {
-		int subLesson = 1;					//The initial state of the JPanel, shows authors name, changes based off slider position
-                int currentLesson = 0;
-                int panelState = 0;
-                JEditorPane lesson;
-                static JEditorPane formula;
+		int subLesson = 1;                  //Sublessons used to cycle HTML files, will only go from 1 to 6			
+                int currentLesson = 0;              //Current Lesson is used to determine which set of HTML files to import
+                int panelState = 0;                 
+                JEditorPane lesson;                 //A JEditorPane used to load HTML files
+                static JEditorPane formula;         //A JScrollPane to contain the JEditorPane implementing scroll bars
                 JScrollPane scrollPane;
                 static JScrollPane formulaPane;
-                JButton l1;
+                JButton l1;                         //Buttons corresponding to Lessons 1,2,3
                 JButton l2;
                 JButton l3;
-                JButton next;
+                JButton next;                       //Next and Previous buttons for cycling lesson slides
                 JButton prev;   
-                JButton goBack;
-                String currentSize = "min";
-                static boolean flag = false;
-                static JFrame popOut;
-	public Tutor()
+                JButton goBack;                     //Go Back returns to lesson selection
+                String currentSize = "min";         //Used for the resize() function to adjust the GUI
+                static boolean flag = false;        //Also used for resize()
+                static JFrame popOut;               //A popout frame to display the formula sheet
+	public Tutor()        //THE CONSTRUCTOR
 	   {
             setLayout(null);
             popOut = new JFrame();
@@ -41,7 +41,7 @@ public class Tutor extends JPanel
             popOut.setLayout(new CardLayout());
             lesson = new JEditorPane(); 
             l1 = new JButton("Lesson1");
-            l1.setBounds(25, 25, 100, 50);
+            l1.setBounds(25, 25, 100, 50);          //Sets the size and placement for all the buttons in the lesson display panel
             l2 = new JButton("Lesson2");
             l2.setBounds(25, 100, 100, 50);
             l3 = new JButton("Lesson3");
@@ -50,7 +50,7 @@ public class Tutor extends JPanel
             prev = new JButton("Previous");
             goBack = new JButton("Go Back");
            
-            l1.addActionListener(new buttonListener());
+            l1.addActionListener(new buttonListener());     //Actionlisteners added to each button
             l2.addActionListener(new buttonListener());
             l3.addActionListener(new buttonListener());
             next.addActionListener(new buttonListener());
@@ -64,7 +64,7 @@ public class Tutor extends JPanel
             formula = new JEditorPane();
             formulaPane = new JScrollPane(formula);
             popOut.add(formulaPane, "1");
-            loadFormulaSheet();
+            loadFormulaSheet();                             //This code implements and creates the formula sheet panel and sets it to invisible
             popOut.setVisible(false);
 		}
         
@@ -97,7 +97,7 @@ public class Tutor extends JPanel
                                 System.out.println("Lesson" + currentLesson +"." + subLesson + ".html");
 			}
 	}
-        public static void loadFormulaSheet()
+        public static void loadFormulaSheet()       //Imports a the single formula sheet file and displays it
         {
             try							//Try statement to open and read an html file, has FileNotFound and IO exceptions
 			{
@@ -117,20 +117,20 @@ public class Tutor extends JPanel
 				formula.setText("Caught IOException: " + e.getMessage());
 			}
         }
-public int getCurrentLesson()
+public int getCurrentLesson()       //Returns currentLesson value, used in Quiz to import the proper question set
 {
     return currentLesson;
 }
 
-public void setWindowSize(String var)
+public void setWindowSize(String var)  //Part of the resize() functionality, specifically called in Universe upon maximizing or minimizing the JFrame
 {
     currentSize = var;
 }
 
-public void updateLesson(int lessonNum)
+public void updateLesson(int lessonNum)     //Used to update the tutorPanel whenever lesson 1,2,3 are clicked.
 {
     lesson = new JEditorPane();
-    remove(l1);
+    remove(l1);                             //Removes all buttons and calls Change lesson to know which lesson slides to display
     remove(l2);
     remove(l3);
     updateUI();
@@ -156,36 +156,36 @@ public void changeLesson(int state)			//changeState method, interacts with the s
 		{
 		}
 	}
-private class buttonListener implements ActionListener
+private class buttonListener implements ActionListener      //Button Listeners for every button
 {
     public void actionPerformed(ActionEvent event)
     {
-        if(event.getSource() == l1)
+        if(event.getSource() == l1)     //Lesson1 button listener
         {
             panelState = 1;
             updateLesson(1);
         }
-        if(event.getSource() == l2)
+        if(event.getSource() == l2)     //Lesson2 button listener
         {
             panelState = 1;
             updateLesson(2);
         }
-        if(event.getSource() == l3)
+        if(event.getSource() == l3)     //Lesson3 button listener
         {
             panelState = 1;
             updateLesson(3);
         }
-        if(event.getSource() == next)
+        if(event.getSource() == next)   //Next button, increments sublesson and updatesPanel
         {
             if((subLesson + 1) != 7)
             {
-                UserProgress.completeLesson(currentLesson, subLesson);
+                UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
                 subLesson++;
                 updatePanel();
                 updateUI();
             }
         }
-        if(event.getSource() == prev)
+        if(event.getSource() == prev)       //Previous button, cycles backwards and updatesPanel
         {
             if((subLesson - 1) != 0)
             {
@@ -194,7 +194,7 @@ private class buttonListener implements ActionListener
                 updateUI();
             }
         }
-        if(event.getSource() == goBack)
+        if(event.getSource() == goBack)     //GoBack button returns user to lesson selection
         {
             remove(lesson);
             remove(scrollPane);
@@ -211,7 +211,7 @@ private class buttonListener implements ActionListener
         }
     } 
 }
-public static void showFormulaSheet()
+public static void showFormulaSheet()   //Shows the formula sheet and hides it if visible
 {
     if(flag == false)
             {
@@ -224,7 +224,7 @@ public static void showFormulaSheet()
                 flag = false;
             }
 }
-public void resize()
+public void resize()            //Resize() used to dynamically adjust size of custom set components using a maximize button call in universe
 {
     if(panelState == 0)
     {

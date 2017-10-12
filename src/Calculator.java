@@ -1,11 +1,13 @@
-// This class is a basic calculator. The student can add, subtract,multiply and divide.
-// It can also handle decimals.
-// Assignment number: Project 3
-// Recitation: Friday 12:55 p.m.
-// Team number: 2
-// author: Abhishek Patel
-// Completeion time: 3 hours
-// Version: 2.0
+/**
+* Calculator.java lets the user to perform basic calculations like addition,
+* subtraction, multiplication, division, and exponential. The calculator
+* also handles decimals.
+* Recitation Project 3
+* Completion time: 3 hours
+*
+* @author Abhishek Patel
+* @version version 2.0
+*/
 
 
 import java.awt.Color;

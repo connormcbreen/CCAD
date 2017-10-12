@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
- * @author conno_000
- */
-public class Questions {
+* Questions.Java is just a question database with a getQuestion function
+* to help generate a quiz in Quiz.java corresponding to the correct lesson
+* Recitation Project 3
+* Completion time: 30 minutes
+*
+* @author Connor McBreen
+* @version version 1.0
+*/
+public class Questions {        //A Question data base, each array contains a question and the 4 possible answers for the buttons. The last index is the correct answer
     
     String[] l1q1 =   {"What is the derivative of X^2", "2X", "X/2", "X", "X^3", "2X"};
     String[] l1q2 =   {"Question", "Answer1", "Answer2", "Answer3", "Answer4", "Answer2"};
@@ -30,10 +29,8 @@ public class Questions {
     String[][] lesson3 = {l3q1, l3q2, l3q3, l3q4, l3q5};
     String[][][] lessons = {lesson1, lesson2, lesson3};
     
-    public String[] getQuestion(int x, int y)
+    public String[] getQuestion(int x, int y)       //Helper method for getting questions in the Quiz class
     {
         return lessons[x][y];
-    }
-    
+    }  
 }
-    

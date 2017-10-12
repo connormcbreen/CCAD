@@ -3,7 +3,7 @@
 * using previously created questions corresponding to the lessons and
 * checking the correct answer with a submit button
 * Recitation Project 3
-* Completion time: 5
+* Completion time: 7 hours
 *
 * @author Connor McBreen
 * @version version 1.0
@@ -23,24 +23,22 @@ import javax.swing.JPanel;
 public class Quiz extends JPanel {
     
         private Tutor tutorPanel;
-	//CardLayoutPanel parentPanel;
-	//Answers buttons
-	private JButton Ans1;
+	private JButton Ans1;               //The four answer buttons to be displayed
 	private JButton Ans2;
 	private JButton Ans3;
 	private JButton Ans4;
 	
-	private JButton nextButton;
+	private JButton nextButton;         //Next button, start button, submit, goback, general navigation buttons for the quiz
         private JButton startButton;
         private JButton submit;
         private JButton goBack;
         private JButton returnToMenu;
         private JButton showFormulaSheet;
-        Grader grade = new Grader();
+        Grader grade = new Grader();        //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
 	Questions questions;
-	String [] qarray;
+	String [] qarray;                   //Array for containing the question
 	int state;
-        String finalAnswer = "";
+        String finalAnswer = "";            //Final answer for comparison and evaluation
         int panelState;
         String currentSize;
         
@@ -48,19 +46,19 @@ public class Quiz extends JPanel {
         public JLabel alert;
         public JTextArea question;
 	
-	public Quiz(Tutor tutor) {
+	public Quiz(Tutor tutor) {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
                 this.tutorPanel = tutor;
                 setLayout(null);
 		questions = new Questions();
 		state = 0;
                 currentSize = "min";
                 panelState = 0;
-		startButton = new JButton("Start Quiz");
+		startButton = new JButton("Start Quiz");            //Custom set for Start and return to menu buttons.
                 startButton.setBounds(100, 100, 100, 50);
                 returnToMenu = new JButton("Return to Menu");
                 returnToMenu.setBounds(100, 200, 200, 50);
                 questions = new Questions();
-		showFormulaSheet = new JButton("Formula Sheet");
+		showFormulaSheet = new JButton("Formula Sheet");    //Formula sheet button to display formula sheet during the Quiz
                 alert = new JLabel();
                 question = new JTextArea();
                 TextualFeedback textPopup = new TextualFeedback();
@@ -74,7 +72,7 @@ public class Quiz extends JPanel {
                 nextButton = new JButton("Next");
                 goBack = new JButton("Go Back");
 		
-                startButton.addActionListener(new buttonListener());
+                startButton.addActionListener(new buttonListener());        //All buttons have buttonlisteners
                 Ans1.addActionListener(new buttonListener());
                 Ans2.addActionListener(new buttonListener());
                 Ans3.addActionListener(new buttonListener());
@@ -87,10 +85,10 @@ public class Quiz extends JPanel {
 		add(startButton);
                 add(returnToMenu);
 	}
-        public void updateQuestion(int x, int y)
+        public void updateQuestion(int x, int y)        //Update Question takes lesson and question number as parameter and returns a question from the questions.java class
         {
             removeAll();
-            qarray = questions.getQuestion(x, y);
+            qarray = questions.getQuestion(x, y);       //All parts of a question are stored in a string array, the parts are put in their appropriate places
 			Ans1.setText(qarray[1]);
 			Ans2.setText(qarray[2]);
 			Ans3.setText(qarray[3]);
@@ -107,16 +105,16 @@ public class Quiz extends JPanel {
                         System.out.print(state);
                         updateUI();
         }
-    public String getCurrentQuestion(int x, int y, int z)
+    public String getCurrentQuestion(int x, int y, int z)       //Get current Question, necessary for submit answer comparisons
         {
             qarray = questions.getQuestion(x, y);
             return qarray[z];
         }
-    public void setWindowSize(String var)
+    public void setWindowSize(String var)           //Used by resize() same as Tutor.Java
     {
     currentSize = var;
     }
-    public void resize()
+    public void resize()                            //Same resize() as Tutor.java, but adjusted for Quiz components
     {
      if(panelState == 0)
      {
@@ -162,10 +160,10 @@ public class Quiz extends JPanel {
             }
     }
 }
-    public class buttonListener implements ActionListener {
+    public class buttonListener implements ActionListener {         //All the button Listeners
 		public void actionPerformed(ActionEvent event) 
                 {
-                        if(event.getSource() == startButton)
+                        if(event.getSource() == startButton)        //Starts the quiz by getting first question and loading the quiz UI
                         {
                             state = 0;
                             if(tutorPanel.getCurrentLesson() == 0)
@@ -185,7 +183,7 @@ public class Quiz extends JPanel {
                             }
      
                         }
-                        if(event.getSource() == Ans1)
+                        if(event.getSource() == Ans1)            // Sets final answer equal to the users most recent answer
                         {
                             finalAnswer = getCurrentQuestion(tutorPanel.getCurrentLesson() - 1, state, 1);
                         }
@@ -201,13 +199,12 @@ public class Quiz extends JPanel {
                         {
                             finalAnswer = getCurrentQuestion(tutorPanel.getCurrentLesson() - 1, state, 4);
                         }
-                        if(event.getSource() == submit)
+                        if(event.getSource() == submit)     // Submit, compares the right answer with the users answer, display an appropriate dialog
                         {
                          if(finalAnswer.equals(getCurrentQuestion(tutorPanel.getCurrentLesson() - 1, state, 5)))
                          {
                             System.out.println("Correct");
-                             //call Carters Check Method
-                             grade.comprehensionAnswerCorrect();
+                             grade.comprehensionAnswerCorrect();        //Grader keeps track of score and computes a grade upon completion
                              TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
@@ -216,7 +213,7 @@ public class Quiz extends JPanel {
                              TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
-			if(event.getSource() == nextButton)
+			if(event.getSource() == nextButton)     //Next button goes to next question
                         {
                             state++;
                             if (state < 5)
@@ -227,9 +224,9 @@ public class Quiz extends JPanel {
                                 updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
                                 }
                             }
-                            else
+                            else        //Upon Quiz completion, a goback button appears to return to start quiz panel
                             {
-                                removeAll();
+                                removeAll();        
                                 panelState = 0;
                                 resize();
                                 alert.setText("You have finished Quiz " + tutorPanel.getCurrentLesson());
@@ -238,7 +235,7 @@ public class Quiz extends JPanel {
                                 updateUI();
                             }
 			}
-                        if(event.getSource() == goBack)
+                        if(event.getSource() == goBack)     //Go back returns user to beginning quiz panel
                         {
                             removeAll();
                             resize();
@@ -247,11 +244,11 @@ public class Quiz extends JPanel {
                             state = 0;
                             updateUI();
                         }
-                        if(event.getSource() == showFormulaSheet)
+                        if(event.getSource() == showFormulaSheet)       //Shows formula sheet
                         {
                             Tutor.showFormulaSheet();
                         }
-                        if(event.getSource() == returnToMenu)
+                        if(event.getSource() == returnToMenu)           //Returns user to main menu
                         {
                             CardLayoutPanel.resetPanel();
                         }
