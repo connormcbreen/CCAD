@@ -1,7 +1,12 @@
 /*
-Creator: Daniel Davidson
-Description: This class holds the users current information and progress as they complete lessons
-
+Description: This class is used to store the users information so that it can be used and displayed in the panels later as
+well as the completion rate of the lessons.
+ Assignment number: Project 3
+ Recitation: Friday 12:55 p.m.
+ Team number: 2
+ author: Daniel Davidson
+ Completeion time: 8 hours
+ Version: 1.0
 */
 
 public class Profile {
