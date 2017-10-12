@@ -1,12 +1,11 @@
-/*
-Description: This class is used to navigate through other Jpanels needed for the main tutor panel including the calculator,
-profile, and quiz panels.
- Assignment number: Project 3
- Recitation: Friday 12:55 p.m.
- Team number: 2
- author: Daniel Davidson
- Completeion time: 2 hours
- Version: 2.0
+/**
+*This class is used to navigate through other Jpanels needed for the main tutor panel including the calculator,
+*profile, and quiz panels.
+*Assignment Number: Recitation Project 3
+*Completeion time: 2 hours
+*
+*@author: Daniel Davidson
+*@version: 2.0
 */
 import java.awt.*;
 import java.awt.event.ActionEvent;

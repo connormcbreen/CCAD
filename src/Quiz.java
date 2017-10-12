@@ -2,12 +2,8 @@
 * Quiz.Java checks the current lesson in progress and creates a quiz
 * using previously created questions corresponding to the lessons and
 * checking the correct answer with a submit button
-* Recitation Project 3
-<<<<<<< HEAD
-* Completion time: 5 hours
-=======
+* Assignment Number: Recitation Project 3
 * Completion time: 7 hours
->>>>>>> c7fdd43152eedaa55eed9929eacb644179a9d426
 *
 * @author Connor McBreen
 * @version version 1.0

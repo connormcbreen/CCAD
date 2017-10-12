@@ -1,13 +1,11 @@
-/*
-Description: This class contains a CardLayout that holds two main JPanels, the first is a login screen that is used to
-hold user information for later use, the second is the main lesson frame consisting of small JPanels with their own functionalities.
- Assignment number: Project 3
- Recitation: Friday 12:55 p.m.
- Team number: 2
- author: Daniel Davidson
- Completeion time: 8 hours
- Version: 2.0
-
+/**
+*This class contains a CardLayout that holds two main JPanels, the first is a login screen that is used to
+*hold user information for later use, the second is the main lesson frame consisting of small JPanels with their own functionalities.
+*Assignment Number: Recitation Project 3
+*Completeion time: 8 hours
+*
+*@author: Daniel Davidson
+*@version: 2.0
 */
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
