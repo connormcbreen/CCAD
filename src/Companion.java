@@ -1,5 +1,5 @@
 /** 
-* Companion class sets up an avatar that can be changed based on the variable “state”.
+* Companion class sets up an avatar that can be changed based on the variable ï¿½stateï¿½.
 * Assignment number: Recitation Project 3
 * Completion time: 20
 * 
@@ -15,9 +15,10 @@ import java.net.URL;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.*;
 //importing all the necessary libraries^^^
 
-public class Companion extends JPanel  { //class declaration - extending JPanel
+public class Companion extends JPanel implements Observer  { //class declaration - extending JPanel
 	
 	//status variable, needs to be static so it's not dependent on one instance
 	static int status = 1;
@@ -92,5 +93,12 @@ public class Companion extends JPanel  { //class declaration - extending JPanel
 	//helpful method for debugging
 	public int getStatus() {
 		return status;
+	}
+
+
+	@Override
+	public void update(Observable obs, Object obj) {
+		// TODO Auto-generated method stub
+		
 	}
 }

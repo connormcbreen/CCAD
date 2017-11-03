@@ -1,6 +1,6 @@
 /** 
 * Grader is a class that is used when the program asks the user questions. It can be used on quizzes or comprehension questions.
-* This class changes the avatar’s state based upon user’s answers.
+* This class changes the avatarï¿½s state based upon userï¿½s answers.
 * Assignment number: Recitation Project 3
 * Completion time: 5
 * 
@@ -9,8 +9,10 @@
 */
 
 import java.net.URISyntaxException;
+import java.util.*;
 
-public class Grader {
+@SuppressWarnings("deprecation")
+public class Grader extends Observable {
 
 	Companion avatar;
 	float totalGrade = -1;
