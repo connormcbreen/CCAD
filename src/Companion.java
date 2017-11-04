@@ -98,7 +98,20 @@ public class Companion extends JPanel implements Observer  { //class declaration
 
 	@Override
 	public void update(Observable obs, Object obj) {
+		System.out.println("changing state from observerable, YAY!");
 		// TODO Auto-generated method stub
+		float grade = ((ControlCenter)obs).getGrade();
+		if(grade>=80) {
+			//happy
+			status = 1;
+		} else if(grade >= 50 && grade < 80) {
+			//worry
+			status = 3;
+		} else {
+			//sorry
+			status = 4;
+		}
+		repaint();
 		
 	}
 }
