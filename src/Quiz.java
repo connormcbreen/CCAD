@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 public class Quiz extends JPanel {
     
-        private Tutor tutorPanel;
+    private Tutor tutorPanel;
 	private JButton Ans1;               //The four answer buttons to be displayed
 	private JButton Ans2;
 	private JButton Ans3;
@@ -34,14 +34,13 @@ public class Quiz extends JPanel {
         private JButton goBack;
         private JButton returnToMenu;
         private JButton showFormulaSheet;
-        Grader grade = new Grader();        //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
+        ControlCenter grade = new ControlCenter();        //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
 	Questions questions;
 	String [] qarray;                   //Array for containing the question
 	int state;
         String finalAnswer = "";            //Final answer for comparison and evaluation
         int panelState;
         String currentSize;
-        
         //Label
         public JLabel alert;
         public JTextArea question;

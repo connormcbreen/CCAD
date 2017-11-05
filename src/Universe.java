@@ -41,6 +41,7 @@ public class Universe {
     //Components for main lesson Frame
     private JLabel labelFour = new JLabel("Daniel Davidson");
     Companion companionPanel = null;
+    ControlCenter observable = new ControlCenter();
     //Assessor assessorPanel = null;
     Calculator calc = null;
     CardLayoutPanel cardPanel = null;
@@ -54,18 +55,21 @@ public class Universe {
     CardLayout layout = new CardLayout();
 
     //Constructor
-    public Universe(){
+    @SuppressWarnings("deprecation")
+	public Universe(){
         tutorPanel = new Tutor();
         quiz = new Quiz(tutorPanel);
         userProfile = new Profile();
         calc = new Calculator();
         cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
+        
         // assessorPanel = new Assessor();
         try {
             companionPanel = new Companion();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        observable.addObserver(companionPanel);
         //Style the individual JPanel with borders
         companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         tutorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
