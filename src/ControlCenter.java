@@ -14,19 +14,40 @@ import java.util.*;
 @SuppressWarnings("deprecation")
 public class ControlCenter extends Observable {
 
+    private static ControlCenter singleInstance = null;
+
 	Companion avatar;
 	float totalGrade = -1;
 	int totalQuestionsAnswered = 0;
 	int correctAnswers = 0;
 	int wrongAnswers = 0;
-	
-	public ControlCenter() {
+	double totalTimeSpent = 0;
+	int timeRating = 0;
+	int correctRating = 0;
+	int incorrectRating = 0;
+	int finalScore = 0;
+    boolean[] correctAnswersArray = new boolean[10];
+    boolean[] incorrectAnswersArray = new boolean[10];
+    double[] timeSpentArray = new double[10];
+
+
+	//Private constructor needed for singleton implementation
+	private ControlCenter() {
 		try {
 			avatar = new Companion();
 		} catch(URISyntaxException e) {
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
+
 	}
+	//This method insures that only one instance of control center will ever exist in the program
+	public static ControlCenter getInstance(){
+        if (singleInstance == null){
+            singleInstance = new ControlCenter();
+
+        }
+        return singleInstance;
+    }
 	
 	//called at the end of a quiz and calculates the user score and changes the avatar accordingly
 	/*public void changeAvatarBasedOnGrade() {
@@ -50,7 +71,36 @@ public class ControlCenter extends Observable {
 		}
 		System.out.println("calculate grade and change avatar");
 	}*/
-	
+	public int calculateHappiness(){
+
+        for(int i = 0; i < correctAnswersArray.length; i++){
+            if (correctAnswersArray[i] == true) {
+                correctAnswers += 1;
+                correctRating = correctAnswers / totalQuestionsAnswered;
+            }
+        }
+        for(int j = 0; j < incorrectAnswersArray.length; j++){
+            if (incorrectAnswersArray[j] == true) {
+                wrongAnswers += 1;
+                incorrectRating = wrongAnswers / totalQuestionsAnswered;
+            }
+        }
+        for(int k = 0; k < timeSpentArray.length; k++ ){
+            totalTimeSpent += timeSpentArray[k];
+            if ((totalTimeSpent / totalQuestionsAnswered) < 2) {
+                timeRating = 10;
+
+            }else if ((totalTimeSpent / totalQuestionsAnswered) > 2 && (totalTimeSpent / totalQuestionsAnswered) < 5){
+                timeRating = 7;
+            }else {
+                timeRating = 5;
+            }
+
+        }
+        finalScore = correctRating + incorrectRating + timeRating / 100;
+        return finalScore;
+
+    }
 	//reset all the variables
 	public void resetEverything() {
 		totalGrade = 0;

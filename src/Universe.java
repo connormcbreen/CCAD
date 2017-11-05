@@ -41,7 +41,7 @@ public class Universe {
     //Components for main lesson Frame
     private JLabel labelFour = new JLabel("Daniel Davidson");
     Companion companionPanel = null;
-    ControlCenter observable = new ControlCenter();
+    ControlCenter observable = ControlCenter.getInstance();
     //Assessor assessorPanel = null;
     Calculator calc = null;
     CardLayoutPanel cardPanel = null;
