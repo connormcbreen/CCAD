@@ -26,9 +26,9 @@ public class ControlCenter extends Observable {
 	int correctRating = 0;
 	int incorrectRating = 0;
 	int finalScore = 0;
-    boolean[] correctAnswersArray = new boolean[10];
-    boolean[] incorrectAnswersArray = new boolean[10];
-    double[] timeSpentArray = new double[10];
+    boolean[] correctAnswersArray = new boolean[30];
+    boolean[] incorrectAnswersArray = new boolean[30];
+    double[] timeSpentArray = new double[30];
 
 
 	//Private constructor needed for singleton implementation
@@ -71,7 +71,7 @@ public class ControlCenter extends Observable {
 		}
 		System.out.println("calculate grade and change avatar");
 	}*/
-	public int calculateHappiness(){
+	public int calculateStatus(){
 
         for(int i = 0; i < correctAnswersArray.length; i++){
             if (correctAnswersArray[i] == true) {
@@ -97,7 +97,7 @@ public class ControlCenter extends Observable {
             }
 
         }
-        finalScore = correctRating + incorrectRating + timeRating / 100;
+        finalScore = (correctRating + incorrectRating + timeRating ) / 100;
         return finalScore;
 
     }
