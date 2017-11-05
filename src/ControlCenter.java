@@ -16,19 +16,21 @@ public class ControlCenter extends Observable {
 
     private static ControlCenter singleInstance = null;
 
-	Companion avatar;
-	float totalGrade = -1;
-	int totalQuestionsAnswered = 0;
-	int correctAnswers = 0;
-	int wrongAnswers = 0;
-	double totalTimeSpent = 0;
-	int timeRating = 0;
-	int correctRating = 0;
-	int incorrectRating = 0;
-	int finalScore = 0;
-    boolean[] correctAnswersArray = new boolean[30];
-    boolean[] incorrectAnswersArray = new boolean[30];
-    double[] timeSpentArray = new double[30];
+	private Companion avatar;
+	private float totalGrade = -1;
+	private int totalQuestionsAnswered = 0;
+	private int correctAnswers = 0;
+	private int wrongAnswers = 0;
+	private double totalTimeSpent = 0;
+	private int timeRating = 0;
+	private int correctRating = 0;
+	private int incorrectRating = 0;
+	private int finalScore = 0;
+
+    private ArrayList<Boolean> correctAnswersArray = new ArrayList<>();
+    private ArrayList<Boolean> incorrectAnswersArray = new ArrayList<>();
+    private ArrayList<Double> timeSpentArray = new ArrayList<>();
+
 
 
 	//Private constructor needed for singleton implementation
@@ -71,22 +73,42 @@ public class ControlCenter extends Observable {
 		}
 		System.out.println("calculate grade and change avatar");
 	}*/
-	public int calculateStatus(){
 
-        for(int i = 0; i < correctAnswersArray.length; i++){
-            if (correctAnswersArray[i] == true) {
+	//Methods to write to arrays depending on answer given
+	public void writeToCorrectArray(boolean value){
+    correctAnswersArray.add(value);
+
+    }
+    public void writeToIncorrectArray(boolean value){
+     incorrectAnswersArray.add(value);
+    }
+    public void writeToTimeSpentArray(Double value){
+      timeSpentArray.add(value);
+    }
+    public void clearArrays(){
+        correctAnswersArray.clear();
+        incorrectAnswersArray.clear();
+        timeSpentArray.clear();
+
+    }
+	public int calculateStatus(){
+        //Count correct answers and take average
+        for(int i = 0; i < correctAnswersArray.size(); i++){
+            if (correctAnswersArray.get(i) == true) {
                 correctAnswers += 1;
                 correctRating = correctAnswers / totalQuestionsAnswered;
             }
         }
-        for(int j = 0; j < incorrectAnswersArray.length; j++){
-            if (incorrectAnswersArray[j] == true) {
+        //Count incorrect answers and take average
+        for(int j = 0; j < incorrectAnswersArray.size(); j++){
+            if (incorrectAnswersArray.get(j) == true) {
                 wrongAnswers += 1;
                 incorrectRating = wrongAnswers / totalQuestionsAnswered;
             }
         }
-        for(int k = 0; k < timeSpentArray.length; k++ ){
-            totalTimeSpent += timeSpentArray[k];
+        //Assign point value on a 0-10 scale depending on time taken per each question answered
+        for(int k = 0; k < timeSpentArray.size(); k++ ){
+            totalTimeSpent += timeSpentArray.get(k);
             if ((totalTimeSpent / totalQuestionsAnswered) < 2) {
                 timeRating = 10;
 
@@ -97,6 +119,7 @@ public class ControlCenter extends Observable {
             }
 
         }
+        //Add all scores to get value between 0-100 and return value
         finalScore = (correctRating + incorrectRating + timeRating ) / 100;
         return finalScore;
 
