@@ -14,17 +14,43 @@ import java.util.*;
 @SuppressWarnings("deprecation")
 public class ControlCenter extends Observable implements Companion {
 
-	Companion avatar;
-	float totalGrade = -1;
-	int totalQuestionsAnswered = 0;
-	int correctAnswers = 0;
-	int wrongAnswers = 0;
-	
-	public ControlCenter() {
-		
-			avatar = new ControlCenter();
-		
-	
+    private static ControlCenter singleInstance = null;
+
+	private Companion avatar;
+	private float totalGrade = -1;
+	private int totalQuestionsAnswered = 0;
+	private int correctAnswers = 0;
+	private int wrongAnswers = 0;
+	private double totalTimeSpent = 0;
+	private int timeRating = 0;
+	private int correctRating = 0;
+	private int incorrectRating = 0;
+	private int finalScore = 0;
+
+    private ArrayList<Boolean> correctAnswersArray = new ArrayList<>();
+    private ArrayList<Boolean> incorrectAnswersArray = new ArrayList<>();
+    private ArrayList<Double> timeSpentArray = new ArrayList<>();
+
+
+
+	//Private constructor needed for singleton implementation
+	private ControlCenter() {
+		try {
+			avatar = new Companion();
+		} catch(URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+	}
+	//This method insures that only one instance of control center will ever exist in the program
+	public static ControlCenter getInstance(){
+        if (singleInstance == null){
+            singleInstance = new ControlCenter();
+
+        }
+        return singleInstance;
+    }
+
 	
 	//called at the end of a quiz and calculates the user score and changes the avatar accordingly
 	/*public void changeAvatarBasedOnGrade() {
@@ -48,7 +74,58 @@ public class ControlCenter extends Observable implements Companion {
 		}
 		System.out.println("calculate grade and change avatar");
 	}*/
-	}
+
+
+	//Methods to write to arrays depending on answer given
+	public void writeToCorrectArray(boolean value){
+    correctAnswersArray.add(value);
+
+    }
+    public void writeToIncorrectArray(boolean value){
+     incorrectAnswersArray.add(value);
+    }
+    public void writeToTimeSpentArray(Double value){
+      timeSpentArray.add(value);
+    }
+    public void clearArrays(){
+        correctAnswersArray.clear();
+        incorrectAnswersArray.clear();
+        timeSpentArray.clear();
+
+    }
+	public int calculateStatus(){
+        //Count correct answers and take average
+        for(int i = 0; i < correctAnswersArray.size(); i++){
+            if (correctAnswersArray.get(i) == true) {
+                correctAnswers += 1;
+                correctRating = correctAnswers / totalQuestionsAnswered;
+            }
+        }
+        //Count incorrect answers and take average
+        for(int j = 0; j < incorrectAnswersArray.size(); j++){
+            if (incorrectAnswersArray.get(j) == true) {
+                wrongAnswers += 1;
+                incorrectRating = wrongAnswers / totalQuestionsAnswered;
+            }
+        }
+        //Assign point value on a 0-10 scale depending on time taken per each question answered
+        for(int k = 0; k < timeSpentArray.size(); k++ ){
+            totalTimeSpent += timeSpentArray.get(k);
+            if ((totalTimeSpent / totalQuestionsAnswered) < 2) {
+                timeRating = 10;
+
+            }else if ((totalTimeSpent / totalQuestionsAnswered) > 2 && (totalTimeSpent / totalQuestionsAnswered) < 5){
+                timeRating = 7;
+            }else {
+                timeRating = 5;
+            }
+
+        }
+        //Add all scores to get value between 0-100 and return value
+        finalScore = (correctRating + incorrectRating + timeRating ) / 100;
+        return finalScore;
+
+    }
 	//reset all the variables
 	public void resetEverything() {
 		totalGrade = 0;

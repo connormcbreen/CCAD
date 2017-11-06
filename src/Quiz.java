@@ -34,8 +34,10 @@ public class Quiz extends JPanel {
         private JButton goBack;
         private JButton returnToMenu;
         private JButton showFormulaSheet;
-        ControlCenter grade = new ControlCenter();        //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
-	Questions questions;
+
+        ControlCenter grade = ControlCenter.getInstance();//Grader implementation, allows for the tracking of a users score on the quiz and update their profile
+
+    Questions questions;
 	String [] qarray;                   //Array for containing the question
 	int state;
         String finalAnswer = "";            //Final answer for comparison and evaluation
