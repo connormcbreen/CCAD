@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 @SuppressWarnings("deprecation")
-public class ControlCenter extends Observable {
+public class ControlCenter extends Observable implements Companion {
 
 	Companion avatar;
 	float totalGrade = -1;
@@ -21,12 +21,10 @@ public class ControlCenter extends Observable {
 	int wrongAnswers = 0;
 	
 	public ControlCenter() {
-		try {
-			avatar = new Companion();
-		} catch(URISyntaxException e) {
-			e.printStackTrace();
-		}
-	}
+		
+			avatar = new ControlCenter();
+		
+	
 	
 	//called at the end of a quiz and calculates the user score and changes the avatar accordingly
 	/*public void changeAvatarBasedOnGrade() {
@@ -50,7 +48,7 @@ public class ControlCenter extends Observable {
 		}
 		System.out.println("calculate grade and change avatar");
 	}*/
-	
+	}
 	//reset all the variables
 	public void resetEverything() {
 		totalGrade = 0;
@@ -96,7 +94,7 @@ public class ControlCenter extends Observable {
 	public void calculateGrade() {
 		totalGrade = (correctAnswers/totalQuestionsAnswered) * 100;
 		setChanged();
-		notifyObservers();
+		notifyObservers(totalGrade);
 		System.out.println("calculating grade");
 	}
 	

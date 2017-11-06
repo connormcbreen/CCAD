@@ -65,7 +65,7 @@ public class Universe {
         
         // assessorPanel = new Assessor();
         try {
-            companionPanel = new Companion();
+            companionPanel = new ControlCenter();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
