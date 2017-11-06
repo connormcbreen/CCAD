@@ -2,7 +2,7 @@
 * Quiz.Java checks the current lesson in progress and creates a quiz
 * using previously created questions corresponding to the lessons and
 * checking the correct answer with a submit button
-* Assignment Number: Recitation Project 3
+* Recitation Project 3
 * Completion time: 7 hours
 *
 * @author Connor McBreen
@@ -13,7 +13,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-
+import java.lang.System;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 public class Quiz extends JPanel {
     
-    private Tutor tutorPanel;
+        private Tutor tutorPanel;
 	private JButton Ans1;               //The four answer buttons to be displayed
 	private JButton Ans2;
 	private JButton Ans3;
@@ -34,15 +34,16 @@ public class Quiz extends JPanel {
         private JButton goBack;
         private JButton returnToMenu;
         private JButton showFormulaSheet;
-
-        ControlCenter grade = ControlCenter.getInstance();//Grader implementation, allows for the tracking of a users score on the quiz and update their profile
-
-    Questions questions;
+      //  ControlCenter grade = ControlCenter.getInstance();       //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
+	Questions questions;
 	String [] qarray;                   //Array for containing the question
 	int state;
         String finalAnswer = "";            //Final answer for comparison and evaluation
         int panelState;
         String currentSize;
+        long start;
+        long finish;
+        public double [] questionTimes = new double[5];
         //Label
         public JLabel alert;
         public JTextArea question;
@@ -58,7 +59,6 @@ public class Quiz extends JPanel {
                 startButton.setBounds(100, 100, 100, 50);
                 returnToMenu = new JButton("Return to Menu");
                 returnToMenu.setBounds(100, 200, 200, 50);
-                questions = new Questions();
 		showFormulaSheet = new JButton("Formula Sheet");    //Formula sheet button to display formula sheet during the Quiz
                 alert = new JLabel();
                 question = new JTextArea();
@@ -115,6 +115,16 @@ public class Quiz extends JPanel {
     {
     currentSize = var;
     }
+    public void questionTime(long x, long y, int z)
+    {
+        long time = (y - x)/100000000;
+        double finalTime = (double)time;
+        questionTimes[z] = finalTime/10.0;
+    }
+    public double[] returnQuestionTimes()
+    {
+        return questionTimes;
+    }
     public void resize()                            //Same resize() as Tutor.java, but adjusted for Quiz components
     {
      if(panelState == 0)
@@ -161,7 +171,8 @@ public class Quiz extends JPanel {
             }
     }
 }
-    public class buttonListener implements ActionListener {         //All the button Listeners
+    public class buttonListener implements ActionListener 
+    {         //All the button Listeners
 		public void actionPerformed(ActionEvent event) 
                 {
                         if(event.getSource() == startButton)        //Starts the quiz by getting first question and loading the quiz UI
@@ -180,6 +191,8 @@ public class Quiz extends JPanel {
                                 panelState = 1;
                                 resize();
                                 updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
+                                start = System.nanoTime();
+                                System.out.println(start);
                                 System.out.println("Banana");    
                             }
      
@@ -216,6 +229,9 @@ public class Quiz extends JPanel {
                         }
 			if(event.getSource() == nextButton)     //Next button goes to next question
                         {
+                            finish = System.nanoTime();
+                            System.out.println(finish);
+                            questionTime(start, finish, state);
                             state++;
                             if (state < 5)
                             {
@@ -223,6 +239,8 @@ public class Quiz extends JPanel {
                                 if(tutorPanel.getCurrentLesson() != 0)
                                 {
                                 updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
+                                start = System.nanoTime();
+                                System.out.println(start);
                                 }
                             }
                             else        //Upon Quiz completion, a goback button appears to return to start quiz panel
@@ -231,6 +249,10 @@ public class Quiz extends JPanel {
                                 panelState = 0;
                                 resize();
                                 alert.setText("You have finished Quiz " + tutorPanel.getCurrentLesson());
+                                for(int i = 0; i < 5; i++)
+                                {
+                                    System.out.println(questionTimes[i]);
+                                }
                                 add(alert);
                                 add(goBack);
                                 updateUI();
