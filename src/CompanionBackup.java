@@ -70,7 +70,7 @@ public class CompanionBackup extends JPanel implements Observer  { //class decla
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		if(status == 1) { //decides which image is displayed depending on slider position.
+		if(status == 1) {
 			g.drawImage(happy, 0, 0, getWidth(), getHeight(), this); //makes sure the width/height match the border
 		} else if (status == 2) {
 			g.drawImage(thinking, 0, 0, getWidth(), getHeight(), this);

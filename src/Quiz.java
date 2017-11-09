@@ -218,12 +218,12 @@ public class Quiz extends JPanel {
                          if(finalAnswer.equals(getCurrentQuestion(tutorPanel.getCurrentLesson() - 1, state, 5)))
                          {
                             System.out.println("Correct");
-                             grade.comprehensionAnswerCorrect();        //Grader keeps track of score and computes a grade upon completion
+                                    //Grader keeps track of score and computes a grade upon completion
                              TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
                          {
-                             grade.comprehensionAnswerWrong();
+                             ///keeps track of the wrong score here
                              TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }

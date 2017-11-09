@@ -12,11 +12,11 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 @SuppressWarnings("deprecation")
-public class ControlCenter extends Observable implements Companion {
+public class ControlCenter extends Observable {
 
     private static ControlCenter singleInstance = null;
 
-	private Companion avatar;
+	private BasicCompanion avatar;
 	private float totalGrade = -1;
 	private int totalQuestionsAnswered = 0;
 	private int correctAnswers = 0;
@@ -36,7 +36,7 @@ public class ControlCenter extends Observable implements Companion {
 	//Private constructor needed for singleton implementation
 	private ControlCenter() {
 		try {
-			avatar = new Companion();
+			avatar = new BasicCompanion();
 		} catch(URISyntaxException e) {
             e.printStackTrace();
         }
