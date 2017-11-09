@@ -98,7 +98,7 @@ public class BasicCompanion extends JPanel implements Companion, Observer{
 			System.out.println("changing BasicCompanion state from observerable ControlCenter, YAY!");
 			// TODO Auto-generated method stub
 			//float grade = ((ControlCenter)obs).getGrade();
-			float grade = (float)obj;
+			/*float grade = (float)obj;
 			if(grade>=80) {
 				//happy
 				status = 1;
@@ -108,8 +108,11 @@ public class BasicCompanion extends JPanel implements Companion, Observer{
 			} else {
 				//sorry
 				status = 4;
-			}
-			repaint();
+			}*/
+			//repaint();
+			int newState = ((Grader)obs).getState();
+			changeState(newState);
+			System.out.println("I just changed the state of the Avatar, yay!");
 		}
 		
 		public JPanel getPanel() {

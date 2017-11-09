@@ -16,7 +16,6 @@ public class ControlCenter extends Observable {
 
     private static ControlCenter singleInstance = null;
 
-	private BasicCompanion avatar;
 	private float totalGrade = -1;
 	private int totalQuestionsAnswered = 0;
 	private int correctAnswers = 0;
@@ -26,6 +25,7 @@ public class ControlCenter extends Observable {
 	private int correctRating = 0;
 	private int incorrectRating = 0;
 	private int finalScore = 0;
+	String companionText = "";
 
     private ArrayList<Boolean> correctAnswersArray = new ArrayList<>();
     private ArrayList<Boolean> incorrectAnswersArray = new ArrayList<>();
@@ -34,12 +34,8 @@ public class ControlCenter extends Observable {
 
 
 	//Private constructor needed for singleton implementation
-	private ControlCenter() {
-		try {
-			avatar = new BasicCompanion();
-		} catch(URISyntaxException e) {
-            e.printStackTrace();
-        }
+	ControlCenter() {
+		
 
 	}
 	//This method insures that only one instance of control center will ever exist in the program
@@ -179,5 +175,10 @@ public class ControlCenter extends Observable {
 	public float getGrade() {
 		System.out.print("grade = " + totalGrade);
 		return totalGrade;
+	}
+	
+	public String getCompanionText() {
+		companionText = "it works, woo hoo!";
+		return companionText;
 	}
 }

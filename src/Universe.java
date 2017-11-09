@@ -37,6 +37,10 @@ public class Universe {
     private JPanel smallPanel = new JPanel();
     private JPanel containerPanel = new JPanel();
     private JButton continueBtn = new JButton();
+    private JRadioButton yesBtn = new JRadioButton("Yes");
+    private JRadioButton noBtn = new JRadioButton("No");
+    private JLabel yesOrNo = new JLabel("Would you like to have your tutor give you textual feedback while you're working?");
+    
 
     //Components for main lesson Frame
     private JLabel labelFour = new JLabel("Daniel Davidson");
@@ -51,6 +55,10 @@ public class Universe {
     private JPanel panelFour = new JPanel();
     private JPanel bottomPanel = new JPanel();
     private JPanel topPanel = new JPanel();
+    BasicCompanion basic;
+    HelperCompanion helper;
+    Grader grade = new Grader();
+    
 
     CardLayout layout = new CardLayout();
 
@@ -58,16 +66,23 @@ public class Universe {
     @SuppressWarnings("deprecation")
 	public Universe(){
         tutorPanel = new Tutor();
-        quiz = new Quiz(tutorPanel);
+        quiz = new Quiz(tutorPanel, grade);
         userProfile = new Profile();
         calc = new Calculator();
         cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
-        
+        try {
+	        	basic = new BasicCompanion();
+	        	helper = new HelperCompanion();
+        }catch(URISyntaxException e) {
+        		System.out.print(e);
+        }
+        grade.addObserver(helper);
+        grade.addObserver(basic);
         // assessorPanel = new Assessor();
-        companionPanel = new CompanionPanel("helper");
+        //companionPanel = new CompanionPanel(basic);
         //observable.addObserver(companionPanel);
         //Style the individual JPanel with borders
-        companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        //companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         tutorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         quiz.setBorder(BorderFactory.createLineBorder(Color.black));
         //assessorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -92,7 +107,7 @@ public class Universe {
 
         setupLoginFrame();
 
-        setupMainFrame();
+        //setupMainFrame();
 
     }
 
@@ -104,6 +119,10 @@ public class Universe {
 
     private void setupLoginFrame(){
         //Setting up login frame and components
+    		ButtonGroup yesorno = new ButtonGroup();
+    		yesorno.add(noBtn);
+    		yesorno.add(yesBtn);
+    		yesBtn.setSelected(true);
         panel1.setLayout(new BorderLayout());
         Color greenColor = new Color(98, 136, 146);
         Color offGreen = new Color(98,116,126);
@@ -138,8 +157,17 @@ public class Universe {
         constraint.gridy++;
         smallPanel.add(emailEntry, constraint);
         constraint.gridy++;
-
+       
+        ///////// THIS IS WHERE I EDITED AND YOU'LL HAVE TO FIX THE FORMATTING DANIEL, SORRY :( I COULDN'T FIGURE OUT THE CONSTRAINTS WORKED
+        smallPanel.add(yesOrNo, constraint);
+        constraint.gridy++;
+        smallPanel.add(yesBtn, constraint);
+        constraint.gridy++;
+        smallPanel.add(noBtn, constraint);
+        constraint.gridy++;
         smallPanel.add(continueBtn, constraint);
+        
+        
         continueBtn.setText("Continue");
 
         continueBtn.addActionListener(new ActionListener() {
@@ -150,6 +178,15 @@ public class Universe {
                     titleLbl.setText("Some fields appear to be missing");
                     titleLbl.setForeground(Color.white);
                 }else {
+                
+                		if(yesBtn.isSelected()) {
+                			companionPanel = new CompanionPanel(helper,basic);
+                			companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                		}else {
+                			companionPanel = new CompanionPanel(basic);
+                			companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                		}
+                		setupMainFrame();
                     userProfile.setName(nameEntry.getText());
                     userProfile.setEmail(emailEntry.getText());
                     System.out.println("\n User name is: " + userProfile.name);
@@ -159,6 +196,7 @@ public class Universe {
                     panel1.setVisible(false);
                     bottomPanel.setVisible(true);
                     layout.show(container, "2");
+                    
                 }
             }
         });

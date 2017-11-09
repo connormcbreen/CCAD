@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.util.*;
 
 public class Quiz extends JPanel {
     
@@ -27,7 +28,7 @@ public class Quiz extends JPanel {
 	private JButton Ans2;
 	private JButton Ans3;
 	private JButton Ans4;
-	
+	Grader grade;
 	private JButton nextButton;         //Next button, start button, submit, goback, general navigation buttons for the quiz
         private JButton startButton;
         private JButton submit;
@@ -48,7 +49,7 @@ public class Quiz extends JPanel {
         public JLabel alert;
         public JTextArea question;
 	
-	public Quiz(Tutor tutor) {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
+	public Quiz(Tutor tutor, Grader newGrade) {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
                 this.tutorPanel = tutor;
                 setLayout(null);
 		questions = new Questions();
@@ -63,7 +64,7 @@ public class Quiz extends JPanel {
                 alert = new JLabel();
                 question = new JTextArea();
                 TextualFeedback textPopup = new TextualFeedback();
-
+                this.grade = newGrade;
 		//Answer buttons
 		Ans1 = new JButton();
 		Ans2 = new JButton();
@@ -219,12 +220,16 @@ public class Quiz extends JPanel {
                          {
                             System.out.println("Correct");
                                     //Grader keeps track of score and computes a grade upon completion
-                             TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
+                            grade.changeFeedbackText("correct, you are a super genius!");
+                            grade.changeState(1);
+                             //TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
                          {
                              ///keeps track of the wrong score here
-                             TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
+                        	 	grade.changeFeedbackText("you're a dumb dumb...");
+                        	 	grade.changeState(4);
+                             //TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
 			if(event.getSource() == nextButton)     //Next button goes to next question

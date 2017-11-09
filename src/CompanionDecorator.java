@@ -9,8 +9,7 @@ public class CompanionDecorator implements Companion {
 	
 	@Override
 	public void setUp() {
-		this.c.setUp(); //sets up whatever Companion is called - helper or basic
-		
+		this.c.setUp(); //sets up whatever Companion is called - helper or basic	
 	}
 	
 
