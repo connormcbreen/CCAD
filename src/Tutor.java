@@ -95,6 +95,9 @@ public class Tutor extends JPanel
             l21.addActionListener(new buttonListener());     //Actionlisteners added to each button
             l22.addActionListener(new buttonListener());
             l23.addActionListener(new buttonListener());
+            l31.addActionListener(new buttonListener());     //Actionlisteners added to each button
+            l32.addActionListener(new buttonListener());
+            l33.addActionListener(new buttonListener());
             next.addActionListener(new buttonListener());
             prev.addActionListener(new buttonListener());
             goBack.addActionListener(new buttonListener());
@@ -284,38 +287,115 @@ private class buttonListener implements ActionListener      //Button Listeners f
         {
             updateLesson(2, 3);
         }
+        if(event.getSource() == l31)     //Lesson3 button listener
+        {
+            updateLesson(3, 1);
+        }
+        if(event.getSource() == l32)     //Lesson3 button listener
+        {
+            updateLesson(3, 2);
+        }
+        if(event.getSource() == l33)     //Lesson3 button listener
+        {
+            updateLesson(3, 3);
+        }
         if(event.getSource() == next)   //Next button, increments sublesson and updatesPanel
         {
-            if(subLesson == 1)
+            if(currentLesson == 1)
             {
+                if(subLesson == 1)
+                {
             		if(subLessonPane == 7) {
             			lessonsBar.changeLessonProgress(currentLesson, subLesson);
             		}
             		
-                if((subLessonPane + 1) != 8)
-                {
-                    UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
-                    
-                    
-                    subLessonPane++;
-                    updatePane();
-                    updateUI();
+                    if((subLessonPane + 1) != 8)
+                    {
+                        UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                        subLessonPane++;
+                        updatePane();
+                        updateUI();
+                    }
                 }
-            }
-            if(subLesson == 2 || subLesson == 3)
-            {
+                if(subLesson == 2 || subLesson == 3)
+                {
             		if(subLessonPane ==6) {
             			lessonsBar.changeLessonProgress(currentLesson, subLesson);
             		}
-                if((subLessonPane + 1) != 7)
-                {
-                    UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                    if((subLessonPane + 1) != 7)
+                    {
+                        UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
                     
-                    subLessonPane++;
-                    updatePane();
-                    updateUI();
+                        subLessonPane++;
+                        updatePane();
+                        updateUI();
+                    }
+                    
                 }
-
+            }
+            if(currentLesson == 2)
+            {
+                if(subLesson == 1 || subLesson == 2)
+                {
+            		if(subLessonPane == 5) {
+            			lessonsBar.changeLessonProgress(currentLesson, subLesson);
+            		}
+            		
+                    if((subLessonPane + 1) != 6)
+                    {
+                        UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                        subLessonPane++;
+                        updatePane();
+                        updateUI();
+                    }
+                }
+                if(subLesson == 3)
+                {
+            		if(subLessonPane == 6) {
+            			lessonsBar.changeLessonProgress(currentLesson, subLesson);
+            		}
+                    if((subLessonPane + 1) != 7)
+                    {
+                        UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                    
+                        subLessonPane++;
+                        updatePane();
+                        updateUI();
+                    }
+                    
+                }
+            }
+            if(currentLesson == 3)
+            {
+                if(subLesson == 1)
+                {
+            		if(subLessonPane == 5) {
+            			lessonsBar.changeLessonProgress(currentLesson, subLesson);
+            		}
+            		
+                    if((subLessonPane + 1) != 6)
+                    {
+                        UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                        subLessonPane++;
+                        updatePane();
+                        updateUI();
+                    }
+                }
+                if(subLesson == 2 || subLesson == 3)
+                {
+            		if(subLessonPane ==7) {
+            			lessonsBar.changeLessonProgress(currentLesson, subLesson);
+            		}
+                    if((subLessonPane + 1) != 8)
+                    {
+                        UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                    
+                        subLessonPane++;
+                        updatePane();
+                        updateUI();
+                    }
+                    
+                }
             }
         }
         if(event.getSource() == prev)       //Previous button, cycles backwards and updatesPanel
