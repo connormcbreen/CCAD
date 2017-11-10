@@ -1,3 +1,12 @@
+/** 
+* ProgressBar class creates a JPanel of progress bars that track the user's progress throughout the system.
+* Assignment number: Recitation Project 4
+* Completion time: 3 hours
+* 
+* @author Carter
+* @version 1.0
+*/
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 

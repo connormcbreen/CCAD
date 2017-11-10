@@ -1,3 +1,13 @@
+/** 
+* Basic companion utilizes the Companion interface and creates an Avatar JPanel without textual feedback. It also implements
+* the observer pattern and changes the Avatar based on the Observable class.
+* Assignment number: Recitation Project 3
+* Completion time: 3 hours
+* 
+* @author Carter
+* @version 1.0
+*/
+
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -96,20 +106,6 @@ public class BasicCompanion extends JPanel implements Companion, Observer{
 		@Override
 		public void update(Observable obs, Object obj) {
 			System.out.println("changing BasicCompanion state from observerable ControlCenter, YAY!");
-			// TODO Auto-generated method stub
-			//float grade = ((ControlCenter)obs).getGrade();
-			/*float grade = (float)obj;
-			if(grade>=80) {
-				//happy
-				status = 1;
-			} else if(grade >= 50 && grade < 80) {
-				//worry
-				status = 3;
-			} else {
-				//sorry
-				status = 4;
-			}*/
-			//repaint();
 			int newState = ((Grader)obs).getState();
 			changeState(newState);
 			System.out.println("I just changed the state of the Avatar, yay!");
