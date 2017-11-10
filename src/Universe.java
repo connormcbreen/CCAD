@@ -58,6 +58,8 @@ public class Universe {
     BasicCompanion basic;
     HelperCompanion helper;
     Grader grade = new Grader();
+    ProgressBar bar = new ProgressBar();
+    ProgressBarPanel progressBar = new ProgressBarPanel(bar);
     
 
     CardLayout layout = new CardLayout();
@@ -66,7 +68,7 @@ public class Universe {
     @SuppressWarnings("deprecation")
 	public Universe(){
         tutorPanel = new Tutor();
-        quiz = new Quiz(tutorPanel, grade);
+        quiz = new Quiz(tutorPanel, grade, bar);
         userProfile = new Profile();
         calc = new Calculator();
         cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
@@ -223,7 +225,7 @@ public class Universe {
         // topPanel.add(assessorPanel);
         // assessorPanel.updateState(1);
         topPanel.add(cardPanel);
-        topPanel.add(panelFour);
+        topPanel.add(progressBar);
         frame.addWindowStateListener(new maximizeButton());
 
         panelFour.add(labelFour);

@@ -181,6 +181,7 @@ private class buttonListener implements ActionListener      //Button Listeners f
             {
                 UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
                 subLesson++;
+                //adfad
                 updatePanel();
                 updateUI();
             }

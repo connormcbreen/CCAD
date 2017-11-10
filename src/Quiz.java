@@ -50,8 +50,10 @@ public class Quiz extends JPanel {
         public JLabel alert;
         public JTextArea totalScore;
         public JTextArea question;
+        public ProgressBar assessmentBar;
 	DecimalFormat df = new DecimalFormat("#.##");
-	public Quiz(Tutor tutor, Grader newGrade) 
+	
+	public Quiz(Tutor tutor, Grader newGrade, ProgressBar bar) 
         {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
                 this.tutorPanel = tutor;
                 setLayout(null);
@@ -71,6 +73,7 @@ public class Quiz extends JPanel {
                 question = new JTextArea();
                 TextualFeedback textPopup = new TextualFeedback();
                 this.grade = newGrade;
+                this.assessmentBar = bar;
 		//Answer buttons
 		Ans1 = new JButton();
 		Ans2 = new JButton();
@@ -216,6 +219,7 @@ public class Quiz extends JPanel {
                         if(event.getSource() == startButton)        //Starts the quiz by getting first question and loading the quiz UI
                         {
                             state = 0;
+                            assessmentBar.changeAssessmentProgress(state);
                             if(tutorPanel.getCurrentLesson() == 0)
                             {
                                  resize();
@@ -230,6 +234,7 @@ public class Quiz extends JPanel {
                                 resize();
                                 updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
                                 start = System.nanoTime();
+                                grade.changeState(2);
                                 System.out.println(start);
                                 System.out.println("Banana");    
                             }
@@ -268,6 +273,7 @@ public class Quiz extends JPanel {
                           //   grade.comprehensionAnswerWrong();
                             grade.changeFeedbackText("you're a dumb dumb...");
                             grade.changeState(4);
+                           
                             // TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
@@ -277,6 +283,7 @@ public class Quiz extends JPanel {
                             System.out.println(finish);
                             questionTime(start, finish, state);
                             state++;
+                            assessmentBar.changeAssessmentProgress(state);
                             if (state < 5)
                             {
                                 resize();
@@ -284,6 +291,7 @@ public class Quiz extends JPanel {
                                 {
                                 updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
                                 start = System.nanoTime();
+                                grade.changeState(2);
                                 System.out.println(start);
                                 }
                             }
