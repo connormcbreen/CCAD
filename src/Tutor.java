@@ -288,10 +288,15 @@ private class buttonListener implements ActionListener      //Button Listeners f
         {
             if(subLesson == 1)
             {
-
+            		if(subLessonPane == 7) {
+            			lessonsBar.changeLessonProgress(currentLesson, subLesson);
+            		}
+            		
                 if((subLessonPane + 1) != 8)
                 {
                     UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                    
+                    
                     subLessonPane++;
                     updatePane();
                     updateUI();
@@ -299,9 +304,13 @@ private class buttonListener implements ActionListener      //Button Listeners f
             }
             if(subLesson == 2 || subLesson == 3)
             {
+            		if(subLessonPane ==6) {
+            			lessonsBar.changeLessonProgress(currentLesson, subLesson);
+            		}
                 if((subLessonPane + 1) != 7)
                 {
                     UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
+                    
                     subLessonPane++;
                     updatePane();
                     updateUI();
