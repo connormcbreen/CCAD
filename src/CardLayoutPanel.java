@@ -34,7 +34,7 @@ public class CardLayoutPanel extends  JPanel {
     JButton testBtn = new JButton("Test");
     JButton logout = new JButton("Logout");
     JButton deleteAccount = new JButton("Delete Account");
-
+    JFrame testFrame = new JFrame();
 
     Profile user = new Profile();
     JLabel nameLbl;
@@ -44,7 +44,7 @@ public class CardLayoutPanel extends  JPanel {
     static CardLayout layout = new CardLayout();
     //Constructor
 
-    public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof, Test test)
+    public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof, final Test test)
     {
         Color greenColor = new Color(98, 136, 146);
         setLayout(new BorderLayout());
@@ -143,7 +143,7 @@ public class CardLayoutPanel extends  JPanel {
         testBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame testFrame = new JFrame();
+                
                 testFrame.setSize(500, 500);
                 testFrame.add(test);
                 testFrame.setVisible(true);

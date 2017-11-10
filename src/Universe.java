@@ -68,7 +68,7 @@ public class Universe {
     //Constructor
     @SuppressWarnings("deprecation")
 	public Universe(){
-        tutorPanel = new Tutor();
+        tutorPanel = new Tutor(bar);
         quiz = new Quiz(tutorPanel, grade, bar);
         test = new Test();
         userProfile = new Profile();

@@ -33,8 +33,11 @@ public class Tutor extends JPanel
                 String currentSize = "min";         //Used for the resize() function to adjust the GUI
                 static boolean flag = false;        //Also used for resize()
                 static JFrame popOut;               //A popout frame to display the formula sheet
-	public Tutor()        //THE CONSTRUCTOR
+                ProgressBar lessonsBar;
+	public Tutor(ProgressBar newBar)        //THE CONSTRUCTOR
 	   {
+			
+			this.lessonsBar = newBar;
             setLayout(null);
             popOut = new JFrame();
             popOut.setSize(350, 350);
@@ -181,7 +184,7 @@ private class buttonListener implements ActionListener      //Button Listeners f
             {
                 UserProgress.completeLesson(currentLesson, subLesson);  //Calls userprogress to track which slides the user has viewed
                 subLesson++;
-                //adfad
+                lessonsBar.changeLessonProgress(currentLesson, subLesson);
                 updatePanel();
                 updateUI();
             }
