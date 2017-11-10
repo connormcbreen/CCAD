@@ -31,6 +31,7 @@ public class CardLayoutPanel extends  JPanel {
     JButton profileBtn = new JButton("Profile");
     JButton calculatorBtn = new JButton("Calculator");
     JButton quizBtn = new JButton("Quiz");
+    JButton testBtn = new JButton("Test");
     JButton logout = new JButton("Logout");
     JButton deleteAccount = new JButton("Delete Account");
 
@@ -43,14 +44,15 @@ public class CardLayoutPanel extends  JPanel {
     static CardLayout layout = new CardLayout();
     //Constructor
 
-    public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof)
+    public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof, Test test)
     {
         Color greenColor = new Color(98, 136, 146);
         setLayout(new BorderLayout());
-        navigatorPanel.setLayout(new GridLayout(4,1));
+        navigatorPanel.setLayout(new GridLayout(5,1));
         navigatorPanel.add(profileBtn);
         navigatorPanel.add(calculatorBtn);
         navigatorPanel.add(quizBtn);
+        navigatorPanel.add(testBtn);
         navigatorPanel.add(logoutPanel);
         logoutPanel.setLayout(new GridLayout(1,2));
         logoutPanel.setBackground(greenColor);
@@ -136,6 +138,15 @@ public class CardLayoutPanel extends  JPanel {
             public void actionPerformed(ActionEvent e) {
                 layout.show(container, "2");
 
+            }
+        });
+        testBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame testFrame = new JFrame();
+                testFrame.setSize(500, 500);
+                testFrame.add(test);
+                testFrame.setVisible(true);
             }
         });
         logout.addActionListener(new ActionListener(){
