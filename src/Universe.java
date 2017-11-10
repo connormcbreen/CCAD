@@ -50,6 +50,7 @@ public class Universe {
     Calculator calc = null;
     CardLayoutPanel cardPanel = null;
     Quiz quiz = null;
+    Test test = null;
     Tutor tutorPanel = null;
     Profile userProfile = null;
     private JPanel panelFour = new JPanel();
@@ -69,9 +70,10 @@ public class Universe {
 	public Universe(){
         tutorPanel = new Tutor();
         quiz = new Quiz(tutorPanel, grade, bar);
+        test = new Test();
         userProfile = new Profile();
         calc = new Calculator();
-        cardPanel = new CardLayoutPanel(quiz, calc, userProfile);
+        cardPanel = new CardLayoutPanel(quiz, calc, userProfile, test);
         try {
 	        	basic = new BasicCompanion();
 	        	helper = new HelperCompanion();

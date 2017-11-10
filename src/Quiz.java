@@ -52,7 +52,6 @@ public class Quiz extends JPanel {
         public JTextArea question;
         public ProgressBar assessmentBar;
 	DecimalFormat df = new DecimalFormat("#.##");
-	
 	public Quiz(Tutor tutor, Grader newGrade, ProgressBar bar) 
         {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
                 this.tutorPanel = tutor;
@@ -273,7 +272,6 @@ public class Quiz extends JPanel {
                           //   grade.comprehensionAnswerWrong();
                             grade.changeFeedbackText("you're a dumb dumb...");
                             grade.changeState(4);
-                           
                             // TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
