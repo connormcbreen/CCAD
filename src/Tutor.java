@@ -47,6 +47,7 @@ public class Tutor extends JPanel
                 static boolean flag = false;        //Also used for resize()
                 static JFrame popOut;               //A popout frame to display the formula sheet
                 ProgressBar lessonsBar;
+                
 	public Tutor(ProgressBar newBar)        //THE CONSTRUCTOR
 	   {
 			

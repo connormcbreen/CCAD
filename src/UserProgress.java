@@ -1,7 +1,7 @@
 /** 
-* UserProgress is used to keep track of the user’s progress throughout the system. It changes the value of the booleans as the user completes lessons/sections.
+* UserProgress is used to keep track of the userï¿½s progress throughout the system. It changes the value of the booleans as the user completes lessons/sections.
 * Assignment number: Recitation Project 3
-* Completion time: 5
+* Completion time: 4 hours
 * 
 * @author Carter
 * @version 1.0
