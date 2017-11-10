@@ -16,7 +16,7 @@ import javax.swing.JTextArea;
 import java.lang.System;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.util.*;
@@ -45,11 +45,14 @@ public class Quiz extends JPanel {
         long start;
         long finish;
         public double [] questionTimes = new double[5];
+        public int [] score = new int[5];
         //Label
         public JLabel alert;
+        public JTextArea totalScore;
         public JTextArea question;
-	
-	public Quiz(Tutor tutor, Grader newGrade) {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
+	DecimalFormat df = new DecimalFormat("#.##");
+	public Quiz(Tutor tutor, Grader newGrade) 
+        {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
                 this.tutorPanel = tutor;
                 setLayout(null);
 		questions = new Questions();
@@ -62,6 +65,9 @@ public class Quiz extends JPanel {
                 returnToMenu.setBounds(100, 200, 200, 50);
 		showFormulaSheet = new JButton("Formula Sheet");    //Formula sheet button to display formula sheet during the Quiz
                 alert = new JLabel();
+                totalScore = new JTextArea();
+                totalScore.setLineWrap(true);
+                //avgTime = new JLabel();
                 question = new JTextArea();
                 TextualFeedback textPopup = new TextualFeedback();
                 this.grade = newGrade;
@@ -126,22 +132,53 @@ public class Quiz extends JPanel {
     {
         return questionTimes;
     }
+    public double returnAvgQTime()
+    {
+        double avgQTime = 0.0;
+        for(int i = 0; i < 5; i++)
+        {
+            avgQTime += questionTimes[i];
+        }
+        return (avgQTime/5.0);
+    }
+    public String finalScore()
+    {
+        String fScore = "";
+        String temp;
+        fScore = "Your average time per Question was " + String.valueOf(df.format(returnAvgQTime())) + "\n";
+        for(int i =0; i < 5; i ++)
+        {
+          if(score[i] == 1)
+          {
+              temp = "Question " + (i + 1) + " Correct\n";
+              fScore += temp;
+          }
+          else
+          {
+              temp = "Question " + (i + 1) + " Incorrect\n";
+              fScore += temp;
+          }
+        }
+        return fScore;
+    }
     public void resize()                            //Same resize() as Tutor.java, but adjusted for Quiz components
     {
      if(panelState == 0)
      {
             if(currentSize.equals("min"))
             {
-                alert.setBounds(75, 25, 200, 50);
+                alert.setBounds(75, 25, 200, 40);
+                totalScore.setBounds(25, 25, 150, 150);
                 startButton.setBounds(100, 100, 100, 50);
-                goBack.setBounds(100, 100, 100, 100);
+                goBack.setBounds(200, 150, 200, 50);
                 returnToMenu.setBounds(100, 200, 200, 50);
             }
             if(currentSize.equals("max"))
             {
-                alert.setBounds(75, 25, 200, 50);
+                alert.setBounds(75, 25, 200, 40);
+                totalScore.setBounds(25, 25, 150, 150);
                 startButton.setBounds(100, 100, 200, 50);
-                goBack.setBounds(100, 100, 200, 50);
+                goBack.setBounds(200, 150, 200, 50);
                 returnToMenu.setBounds(100, 200, 200, 50);
             }
         
@@ -219,17 +256,19 @@ public class Quiz extends JPanel {
                          if(finalAnswer.equals(getCurrentQuestion(tutorPanel.getCurrentLesson() - 1, state, 5)))
                          {
                             System.out.println("Correct");
-                                    //Grader keeps track of score and computes a grade upon completion
+                            score[state] = 1;
                             grade.changeFeedbackText("correct, you are a super genius!");
                             grade.changeState(1);
-                             //TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
+                           //  grade.comprehensionAnswerCorrect();        //Grader keeps track of score and computes a grade upon completion
+                            // TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
                          {
-                             ///keeps track of the wrong score here
-                        	 	grade.changeFeedbackText("you're a dumb dumb...");
-                        	 	grade.changeState(4);
-                             //TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
+                             score[state] = 0;
+                          //   grade.comprehensionAnswerWrong();
+                            grade.changeFeedbackText("you're a dumb dumb...");
+                            grade.changeState(4);
+                            // TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
 			if(event.getSource() == nextButton)     //Next button goes to next question
@@ -258,7 +297,10 @@ public class Quiz extends JPanel {
                                 {
                                     System.out.println(questionTimes[i]);
                                 }
-                                add(alert);
+                                //avgTime.setText("Your average time per question was" + String.valueOf(returnAvgQTime()));
+                                totalScore.setText(finalScore());
+                                add(totalScore);
+                                //add(alert);
                                 add(goBack);
                                 updateUI();
                             }
