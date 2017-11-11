@@ -41,7 +41,7 @@ public class Quiz extends JPanel {
         private JButton goBack;
         private JButton returnToMenu;
         private JButton showFormulaSheet;
-        ControlCenter Controller = ControlCenter.getInstance();       //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
+        ControlCenter controlcenter = ControlCenter.getInstance();       //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
 	Questions questions;
 	String [] qarray;                   //Array for containing the question
 	int state;
@@ -168,7 +168,7 @@ public class Quiz extends JPanel {
         long time = (y - x)/100000000;
         double finalTime = (double)time;
         questionTimes[z] = finalTime/10.0;
-        Controller.writeToTimeSpentArray(finalTime/10.0);
+        controlcenter.writeToTimeSpentArray(finalTime/10.0);
     }
     public double[] returnQuestionTimes()           // simply returns question time array
     {
@@ -318,9 +318,9 @@ public class Quiz extends JPanel {
                          {
                             System.out.println("Correct");
                             score[state] = 1;
-                            Controller.writeToCorrectArray(true);
-                            Controller.updateTotalQuestions();
-                            Controller.calculateStatus();
+                             controlcenter.writeToCorrectArray(true);
+                             controlcenter.updateTotalQuestions();
+                             controlcenter.calculateStatus();
                             grade.changeFeedbackText("correct, you are a super genius!");
                             grade.changeState(1);
                            //  grade.changeAvatarBasedOnGrade(Controller.calculateStatus());
@@ -331,9 +331,9 @@ public class Quiz extends JPanel {
                          else 
                          {
                              score[state] = 0;
-                             Controller.writeToIncorrectArray(true);
-                             Controller.updateTotalQuestions();
-                             Controller.calculateStatus();
+                             controlcenter.writeToIncorrectArray(true);
+                             controlcenter.updateTotalQuestions();
+                             controlcenter.calculateStatus();
                           //   grade.comprehensionAnswerWrong();
                             grade.changeFeedbackText("you're a dumb dumb...");
                             grade.changeState(4);
@@ -385,7 +385,7 @@ public class Quiz extends JPanel {
 			}
                         if(event.getSource() == goBack)     //Go back returns user to beginning quiz panel
                         {
-                            Controller.resetEverything();
+                            controlcenter.resetEverything();
                             removeAll();
                             resize();
                             add(startButton);

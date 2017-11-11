@@ -34,7 +34,7 @@ public class CardLayoutPanel extends  JPanel {
     JButton testBtn = new JButton("Test");
 //    JButton logout = new JButton("Logout");
 //    JButton deleteAccount = new JButton("Delete Account");
-
+    JFrame testFrame = new JFrame();
     Profile user = new Profile();
     JLabel nameLbl;
     JLabel emailLbl;
