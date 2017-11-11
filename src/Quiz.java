@@ -35,7 +35,7 @@ public class Quiz extends JPanel {
         private JButton goBack;
         private JButton returnToMenu;
         private JButton showFormulaSheet;
-      //  ControlCenter grade = ControlCenter.getInstance();       //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
+        ControlCenter Controller = ControlCenter.getInstance();       //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
 	Questions questions;
 	String [] qarray;                   //Array for containing the question
 	int state;
@@ -129,6 +129,7 @@ public class Quiz extends JPanel {
         long time = (y - x)/100000000;
         double finalTime = (double)time;
         questionTimes[z] = finalTime/10.0;
+        Controller.writeToTimeSpentArray(finalTime/10.0);
     }
     public double[] returnQuestionTimes()
     {
@@ -140,6 +141,8 @@ public class Quiz extends JPanel {
         for(int i = 0; i < 5; i++)
         {
             avgQTime += questionTimes[i];
+
+
         }
         return (avgQTime/5.0);
     }
@@ -148,6 +151,7 @@ public class Quiz extends JPanel {
         String fScore = "";
         String temp;
         fScore = "Your average time per Question was " + String.valueOf(df.format(returnAvgQTime())) + "\n";
+
         for(int i =0; i < 5; i ++)
         {
           if(score[i] == 1)
@@ -233,7 +237,7 @@ public class Quiz extends JPanel {
                                 resize();
                                 updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
                                 start = System.nanoTime();
-                                grade.changeState(2);
+                               // grade.changeState(2);
                                 System.out.println(start);
                                 System.out.println("Banana");    
                             }
@@ -261,17 +265,25 @@ public class Quiz extends JPanel {
                          {
                             System.out.println("Correct");
                             score[state] = 1;
+                            Controller.writeToCorrectArray(true);
+                            Controller.updateTotalQuestions();
+                            Controller.calculateStatus();
                             grade.changeFeedbackText("correct, you are a super genius!");
                             grade.changeState(1);
+                           //  grade.changeAvatarBasedOnGrade(Controller.calculateStatus());
                            //  grade.comprehensionAnswerCorrect();        //Grader keeps track of score and computes a grade upon completion
                             // TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
                          {
                              score[state] = 0;
+                             Controller.writeToIncorrectArray(true);
+                             Controller.updateTotalQuestions();
+                             Controller.calculateStatus();
                           //   grade.comprehensionAnswerWrong();
                             grade.changeFeedbackText("you're a dumb dumb...");
                             grade.changeState(4);
+                             //grade.changeAvatarBasedOnGrade(Controller.calculateStatus());
                             // TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
@@ -290,6 +302,7 @@ public class Quiz extends JPanel {
                                 updateQuestion(tutorPanel.getCurrentLesson() - 1, state);
                                 start = System.nanoTime();
                                 grade.changeState(2);
+                                // grade.changeAvatarBasedOnGrade(Controller.calculateStatus());
                                 System.out.println(start);
                                 }
                             }
@@ -310,9 +323,11 @@ public class Quiz extends JPanel {
                                 add(goBack);
                                 updateUI();
                             }
+
 			}
                         if(event.getSource() == goBack)     //Go back returns user to beginning quiz panel
                         {
+                            Controller.resetEverything();
                             removeAll();
                             resize();
                             add(startButton);

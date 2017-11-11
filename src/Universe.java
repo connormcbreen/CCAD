@@ -2,20 +2,21 @@
 *This class contains a CardLayout that holds two main JPanels, the first is a login screen that is used to
 *hold user information for later use, the second is the main lesson frame consisting of small JPanels with their own functionalities.
 *Assignment Number: Recitation Project 3
-*Completeion time: 8 hours
+*Completeion time: 5 hours
 *
 *@author: Daniel Davidson
-*@version: 2.0
+*@version: 3.0
 */
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.awt.event.WindowStateListener;
 import java.awt.event.WindowEvent;
-
+import java.io.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -27,20 +28,24 @@ public class Universe {
     JPanel container = new JPanel();
     JPanel panel1 = new JPanel();
     JPanel panel2 = new JPanel();
+    public Boolean hasLoggedin = false;
 
     //Components for login panel
     private JLabel nameLbl = new JLabel("Name:");
     private JLabel emailLbl = new JLabel("Email:");
     private JLabel titleLbl = new JLabel("Please enter your information below to continue!");
-    private JTextField nameEntry = new JTextField(10);
-    private JTextField emailEntry = new JTextField(10);
+    private JTextField nameEntry = new JTextField(15);
+    private JTextField emailEntry = new JTextField(15);
     private JPanel smallPanel = new JPanel();
     private JPanel containerPanel = new JPanel();
     private JButton continueBtn = new JButton();
     private JRadioButton yesBtn = new JRadioButton("Yes");
     private JRadioButton noBtn = new JRadioButton("No");
+    private JRadioButton yesRemember = new JRadioButton("Yes");
+    private JRadioButton noRemember = new JRadioButton("No");
+    private JLabel rememberMeLbl = new JLabel("Remember me");
     private JLabel yesOrNo = new JLabel("Would you like to have your tutor give you textual feedback while you're working?");
-    
+
 
     //Components for main lesson Frame
     private JLabel labelFour = new JLabel("Daniel Davidson");
@@ -73,7 +78,10 @@ public class Universe {
         test = new Test();
         userProfile = new Profile();
         calc = new Calculator();
-        cardPanel = new CardLayoutPanel(quiz, calc, userProfile, test);
+        JButton logout = new JButton("Logout");
+        JButton deleteAccount = new JButton("Delete Account");
+
+        cardPanel = new CardLayoutPanel(quiz, calc, userProfile, test, logout,deleteAccount);
         try {
 	        	basic = new BasicCompanion();
 	        	helper = new HelperCompanion();
@@ -94,7 +102,7 @@ public class Universe {
         panelFour.setBorder(BorderFactory.createLineBorder(Color.black));
 
         //Set a default opening size and layout
-        frame.setPreferredSize(new Dimension(700,700));
+        frame.setPreferredSize(new Dimension(1000,1000));
         container.setLayout(layout);
 
         //Add two login panel and main lesson panel to container panel
@@ -111,15 +119,67 @@ public class Universe {
 
         setupLoginFrame();
 
-        //setupMainFrame();
+       //This method is used to switch the panel being shown between the login screen and the main panel.
+        logout.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                layout.show(container, "1");
+
+            }
+        });
+        //This method shows the login panel and deletes the text file containing the users profile information.
+        deleteAccount.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                layout.show(container, "1");
+
+            }
+        });
+
 
     }
 
-
-
+//In the main method the first thing that is done is to read a file called userProfile which consists of the last users information and populates the
+    //Textfields for the user as a remember me feature.
     public static void main(String[] args) {
         Universe system = new Universe();
+        system.yesRemember.setSelected(true);
+        try {
+
+            FileReader fileReader = new FileReader("userProfile.txt"); //Read in file
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String firstLine;
+            String secondLine;
+            String thirdLine;
+            firstLine = bufferedReader.readLine();
+            //If remember me option is checked
+            if (firstLine.toString().equalsIgnoreCase("1")) {
+
+                System.out.println(firstLine);
+                secondLine = bufferedReader.readLine();
+                system.nameEntry.setText(secondLine);
+                System.out.println(secondLine);
+                thirdLine = bufferedReader.readLine();
+                System.out.println(thirdLine);
+                system.emailEntry.setText(thirdLine);
+            }
+
+            fileReader.close();
+            //Exception handling
+        }catch (FileNotFoundException ex){
+            System.out.println("Error File Not Found");
+        }catch (IOException ioexception){
+                ioexception.printStackTrace();
+        }
+
+
+
     }
+
+
 
     private void setupLoginFrame(){
         //Setting up login frame and components
@@ -127,6 +187,11 @@ public class Universe {
     		yesorno.add(noBtn);
     		yesorno.add(yesBtn);
     		yesBtn.setSelected(true);
+
+    		ButtonGroup rememberGroup = new ButtonGroup();
+    		rememberGroup.add(noRemember);
+    		rememberGroup.add(yesRemember);
+
         panel1.setLayout(new BorderLayout());
         Color greenColor = new Color(98, 136, 146);
         Color offGreen = new Color(98,116,126);
@@ -161,13 +226,18 @@ public class Universe {
         constraint.gridy++;
         smallPanel.add(emailEntry, constraint);
         constraint.gridy++;
-       
-        ///////// THIS IS WHERE I EDITED AND YOU'LL HAVE TO FIX THE FORMATTING DANIEL, SORRY :( I COULDN'T FIGURE OUT THE CONSTRAINTS WORKED
+
         smallPanel.add(yesOrNo, constraint);
         constraint.gridy++;
         smallPanel.add(yesBtn, constraint);
         constraint.gridy++;
         smallPanel.add(noBtn, constraint);
+        constraint.gridy++;
+        smallPanel.add(rememberMeLbl);
+        constraint.gridy++;
+        smallPanel.add(yesRemember);
+        constraint.gridy++;
+        smallPanel.add(noRemember);
         constraint.gridy++;
         smallPanel.add(continueBtn, constraint);
         
@@ -182,14 +252,17 @@ public class Universe {
                     titleLbl.setText("Some fields appear to be missing");
                     titleLbl.setForeground(Color.white);
                 }else {
-                
-                		if(yesBtn.isSelected()) {
-                			companionPanel = new CompanionPanel(helper,basic);
-                			companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                		}else {
-                			companionPanel = new CompanionPanel(basic);
-                			companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-                		}
+                if (hasLoggedin == false) {
+                        if (yesBtn.isSelected()) {
+                            hasLoggedin = true;
+                            companionPanel = new CompanionPanel(helper, basic);
+                            companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                        } else {
+                            hasLoggedin = true ;
+                            companionPanel = new CompanionPanel(basic);
+                            companionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                        }
+                    }
                 		setupMainFrame();
                     userProfile.setName(nameEntry.getText());
                     userProfile.setEmail(emailEntry.getText());
@@ -197,8 +270,45 @@ public class Universe {
                     System.out.println("User email is: " + userProfile.email);
                     cardPanel.nameLbl.setText("Name: " + userProfile.getName());
                     cardPanel.emailLbl.setText("Email: " + userProfile.getEmail());
-                    panel1.setVisible(false);
-                    bottomPanel.setVisible(true);
+
+                            //Used to output the user information to a text file that will be read next time the program opens
+                        if (yesRemember.isSelected()) {
+                            try {
+                                //Write file to be read upon rerun of program
+                                PrintWriter newWriter = new PrintWriter("userProfile.txt", "UTF-8");
+                                newWriter.println("1");
+                                newWriter.println(userProfile.name);
+                                newWriter.println(userProfile.email);
+                                newWriter.close();
+                            //Exception handling
+                            }catch (UnsupportedEncodingException er) {
+                                throw  new AssertionError("UTF-8 is unknown", er);
+                            }
+                            catch (FileNotFoundException exception) {
+                                System.out.println("File not found");
+                            }
+
+                        }else if (noRemember.isSelected()){
+                            try {
+                                //Write file but do not remember for next time
+                                PrintWriter newWriter = new PrintWriter("userProfile.txt", "UTF-8");
+                                newWriter.println("0");
+                                newWriter.println(userProfile.name);
+                                newWriter.println(userProfile.email);
+                                newWriter.close();
+                            //Exception handling
+                            }catch (UnsupportedEncodingException er) {
+                                throw  new AssertionError("UTF-8 is unknown", er);
+                            }
+                            catch (FileNotFoundException exception) {
+                                System.out.println("File not found");
+                            }
+
+                        } else {
+                            return;
+
+                    }
+
                     layout.show(container, "2");
                     
                 }
@@ -223,9 +333,6 @@ public class Universe {
         //add all panels
         topPanel.add(companionPanel);
         topPanel.add(tutorPanel);
-        //topPanel.add(conceptualQuestions);
-        // topPanel.add(assessorPanel);
-        // assessorPanel.updateState(1);
         topPanel.add(cardPanel);
         topPanel.add(progressBar);
         frame.addWindowStateListener(new maximizeButton());
@@ -234,7 +341,9 @@ public class Universe {
         panel2.setSize(700,700);
         panel2.setVisible(false);
 
+
     }
+
 
     boolean flag = false;
     private class maximizeButton implements WindowStateListener
@@ -260,7 +369,7 @@ public class Universe {
                 System.out.println("min");
                 tutorPanel.setWindowSize("min");
                 tutorPanel.resize();
-                quiz.setWindowSize("max");
+                quiz.setWindowSize("min");
                 quiz.resize();
             }
         }

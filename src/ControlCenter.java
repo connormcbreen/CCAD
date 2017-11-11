@@ -1,11 +1,11 @@
 /** 
-* Grader is a class that is used when the program asks the user questions. It can be used on quizzes or comprehension questions.
-* This class changes the avatar�s state based upon user�s answers.
-* Assignment number: Recitation Project 3
-* Completion time: 5
-* 
-* @author Carter
-* @version 1.0
+* Control Center is a class that is used to store correct and incorrect answers to quizes and calculate a grade for the user as well as store the time taken for each question.
+* Assignment number: Recitation Project 4
+* Completion time: 8
+* Version: 3.0
+* @author Daniel Davidson
+
+*
 */
 
 import java.net.URISyntaxException;
@@ -20,7 +20,7 @@ public class ControlCenter extends Observable {
 	private int totalQuestionsAnswered = 0;
 	private int correctAnswers = 0;
 	private int wrongAnswers = 0;
-	private double totalTimeSpent = 0;
+	private double totalTimeSpent = 0.0;
 	private int timeRating = 0;
 	private int correctRating = 0;
 	private int incorrectRating = 0;
@@ -49,39 +49,46 @@ public class ControlCenter extends Observable {
 
 	
 	//called at the end of a quiz and calculates the user score and changes the avatar accordingly
-	/*public void changeAvatarBasedOnGrade() {
-		calculateGrade();
-		
-		if(totalGrade>=80) {
-			//happy
-			avatar.changeState(1);
-			setChanged();
-			notifyObservers();
-		} else if(totalGrade >= 50 && totalGrade < 80) {
-			//worry
-			avatar.changeState(3);
-			setChanged();
-			notifyObservers();
-		} else {
-			//sorry
-			avatar.changeState(4);
-			setChanged();
-			notifyObservers();
-		}
-		System.out.println("calculate grade and change avatar");
-	}*/
+	public float getoverallgrade(){
+		float finalgrade = (correctAnswers/totalQuestionsAnswered) * 100;
+		return finalgrade;
+	}
+	public int getCorrectAnswers(){
+		return correctAnswers;
+	}
 
+	public int getWrongAnswers(){
+		return wrongAnswers;
+	}
+
+	public int getQuestionsAnswered(){
+		return totalQuestionsAnswered;
+	}
+
+	public void updateTotalQuestions(){
+		totalQuestionsAnswered++;
+		System.out.println("Questions answered: " + totalQuestionsAnswered);
+	}
 
 	//Methods to write to arrays depending on answer given
 	public void writeToCorrectArray(boolean value){
     correctAnswersArray.add(value);
+    for (int i = 0; i < correctAnswersArray.size(); i++){
+		System.out.println(correctAnswersArray.get(i).toString());
+	}
 
     }
     public void writeToIncorrectArray(boolean value){
      incorrectAnswersArray.add(value);
+		for (int i = 0; i < incorrectAnswersArray.size(); i++){
+			System.out.println(incorrectAnswersArray.get(i).toString());
+		}
     }
     public void writeToTimeSpentArray(Double value){
       timeSpentArray.add(value);
+		for (int i = 0; i < timeSpentArray.size(); i++){
+			System.out.println(timeSpentArray.get(i).toString());
+		}
     }
     public void clearArrays(){
         correctAnswersArray.clear();
@@ -94,32 +101,41 @@ public class ControlCenter extends Observable {
         for(int i = 0; i < correctAnswersArray.size(); i++){
             if (correctAnswersArray.get(i) == true) {
                 correctAnswers += 1;
-                correctRating = correctAnswers / totalQuestionsAnswered;
-            }
+                correctRating = (correctAnswers / totalQuestionsAnswered * 100);
+				System.out.println("CORRECT RATING: " + correctRating);
+
+			}
         }
         //Count incorrect answers and take average
         for(int j = 0; j < incorrectAnswersArray.size(); j++){
             if (incorrectAnswersArray.get(j) == true) {
                 wrongAnswers += 1;
-                incorrectRating = wrongAnswers / totalQuestionsAnswered;
+                incorrectRating = (wrongAnswers / totalQuestionsAnswered * 100);
+				System.out.println("INCORRECT RATING: " + incorrectRating);
             }
         }
         //Assign point value on a 0-10 scale depending on time taken per each question answered
         for(int k = 0; k < timeSpentArray.size(); k++ ){
             totalTimeSpent += timeSpentArray.get(k);
-            if ((totalTimeSpent / totalQuestionsAnswered) < 2) {
+            if ((totalTimeSpent / totalQuestionsAnswered) < 60) {
                 timeRating = 10;
 
-            }else if ((totalTimeSpent / totalQuestionsAnswered) > 2 && (totalTimeSpent / totalQuestionsAnswered) < 5){
-                timeRating = 7;
-            }else {
+            }else if ((totalTimeSpent / totalQuestionsAnswered) > 60 && (totalTimeSpent / totalQuestionsAnswered)  < 120){
                 timeRating = 5;
+            }else {
+                timeRating = -10;
             }
 
         }
         //Add all scores to get value between 0-100 and return value
-        finalScore = (correctRating + incorrectRating + timeRating ) / 100;
-        return finalScore;
+        finalScore = (correctRating / totalQuestionsAnswered);
+		if ((finalScore != 100) && (finalScore != 0)) {
+			finalScore = finalScore + timeRating;
+		}
+
+		System.out.println("FINAL SCORE: " + finalScore);
+
+		return finalScore;
 
     }
 	//reset all the variables
@@ -128,6 +144,9 @@ public class ControlCenter extends Observable {
 		totalQuestionsAnswered = 0;
 		correctAnswers = 0;
 		wrongAnswers = 0;
+		correctAnswersArray.clear();
+		incorrectAnswersArray.clear();
+		timeSpentArray.clear();
 		System.out.println("reset all fields");
 	}
 	

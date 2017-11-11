@@ -2,10 +2,10 @@
 *This class is used to navigate through other Jpanels needed for the main tutor panel including the calculator,
 *profile, and quiz panels.
 *Assignment Number: Recitation Project 3
-*Completeion time: 2 hours
+*Completeion time: 3 hours
 *
 *@author: Daniel Davidson
-*@version: 2.0
+*@version: 3.0
 */
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,8 +32,8 @@ public class CardLayoutPanel extends  JPanel {
     JButton calculatorBtn = new JButton("Calculator");
     JButton quizBtn = new JButton("Quiz");
     JButton testBtn = new JButton("Test");
-    JButton logout = new JButton("Logout");
-    JButton deleteAccount = new JButton("Delete Account");
+//    JButton logout = new JButton("Logout");
+//    JButton deleteAccount = new JButton("Delete Account");
 
 
     Profile user = new Profile();
@@ -44,7 +44,7 @@ public class CardLayoutPanel extends  JPanel {
     static CardLayout layout = new CardLayout();
     //Constructor
 
-    public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof, Test test)
+    public CardLayoutPanel(Quiz quiz, Calculator calc, Profile prof, Test test,JButton logout, JButton delete)
     {
         Color greenColor = new Color(98, 136, 146);
         setLayout(new BorderLayout());
@@ -57,7 +57,7 @@ public class CardLayoutPanel extends  JPanel {
         logoutPanel.setLayout(new GridLayout(1,2));
         logoutPanel.setBackground(greenColor);
         logoutPanel.add(logout);
-        logoutPanel.add(deleteAccount);
+        logoutPanel.add(delete);
 
         nameLbl = new JLabel("Name: " + prof.getName());
         emailLbl = new JLabel("Email: " + prof.getEmail());
@@ -149,20 +149,7 @@ public class CardLayoutPanel extends  JPanel {
                 testFrame.setVisible(true);
             }
         });
-        logout.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                Universe newUniverse = new Universe();
 
-            }
-        });
-        deleteAccount.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                Universe newUniverse = new Universe();
-            }
-        });
-        setVisible(true);
 
     }
     public static void resetPanel()
