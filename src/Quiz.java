@@ -152,7 +152,7 @@ public class Quiz extends JPanel {
             qarray = questions.getQuestion(x, y);
             return qarray[z];
         }
-    public String getCurrentHint(int x, int y)
+    public String getCurrentHint(int x, int y)      //Returns the hint for the current question
     {
         qarray = questions.getQuestion(x, y);
         String temp = qarray[6];
@@ -162,17 +162,17 @@ public class Quiz extends JPanel {
     {
     currentSize = var;
     }
-    public void questionTime(long x, long y, int z)
+    public void questionTime(long x, long y, int z)     // Calculates the question time based of system nano time
     {
         long time = (y - x)/100000000;
         double finalTime = (double)time;
         questionTimes[z] = finalTime/10.0;
     }
-    public double[] returnQuestionTimes()
+    public double[] returnQuestionTimes()           // simply returns question time array
     {
         return questionTimes;
     }
-    public double returnAvgQTime()
+    public double returnAvgQTime()              // Calculates the avg time per question of the user
     {
         double avgQTime = 0.0;
         for(int i = 0; i < 5; i++)
@@ -181,7 +181,7 @@ public class Quiz extends JPanel {
         }
         return (avgQTime/5.0);
     }
-    public String finalScore()
+    public String finalScore()          // Computes the final score, the number of questions the user answered correctly
     {
         String fScore = "";
         String temp;
@@ -276,7 +276,7 @@ public class Quiz extends JPanel {
                             }
                             else if(tutorPanel.getCurrentLesson() >= 1 && tutorPanel.getCurrentLesson() <= 3)
                             {
-                                if(hintYes.isSelected())
+                                if(hintYes.isSelected())        // Checks of the user wants hints from the companion, if yes, sets true and creates a hint button
                                 {
                                     hintTrue = true;
                                 }
@@ -315,16 +315,12 @@ public class Quiz extends JPanel {
                             score[state] = 1;
                             grade.changeFeedbackText("correct, you are a super genius!");
                             grade.changeState(1);
-                           //  grade.comprehensionAnswerCorrect();        //Grader keeps track of score and computes a grade upon completion
-                            // TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
                          }
                          else 
                          {
                              score[state] = 0;
-                          //   grade.comprehensionAnswerWrong();
                             grade.changeFeedbackText("you're a dumb dumb...");
                             grade.changeState(4);
-                            // TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
                          }
                         }
 			if(event.getSource() == nextButton)     //Next button goes to next question
