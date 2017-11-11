@@ -73,7 +73,7 @@ public class Universe {
     //Constructor
     @SuppressWarnings("deprecation")
 	public Universe(){
-        tutorPanel = new Tutor();
+        tutorPanel = new Tutor(bar);
         quiz = new Quiz(tutorPanel, grade, bar);
         test = new Test();
         userProfile = new Profile();
@@ -266,6 +266,8 @@ public class Universe {
                 		setupMainFrame();
                     userProfile.setName(nameEntry.getText());
                     userProfile.setEmail(emailEntry.getText());
+                    ExportPrintable export = new ExportPrintable();
+                    export.displayinfo(userProfile);
                     System.out.println("\n User name is: " + userProfile.name);
                     System.out.println("User email is: " + userProfile.email);
                     cardPanel.nameLbl.setText("Name: " + userProfile.getName());
@@ -375,3 +377,4 @@ public class Universe {
         }
     }
 }
+

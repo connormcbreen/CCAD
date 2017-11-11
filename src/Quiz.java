@@ -2,11 +2,11 @@
 * Quiz.Java checks the current lesson in progress and creates a quiz
 * using previously created questions corresponding to the lessons and
 * checking the correct answer with a submit button
-* Recitation Project 3
-* Completion time: 7 hours
+* Recitation Project 4
+* Completion time: 15 hours
 *
 * @author Connor McBreen
-* @version version 1.0
+* @version version 2.0
 */
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import java.util.*;
 
@@ -29,6 +31,10 @@ public class Quiz extends JPanel {
 	private JButton Ans3;
 	private JButton Ans4;
 	Grader grade;
+        private JRadioButton hintYes;
+        private JRadioButton hintNo;
+        private ButtonGroup hints;
+        private JButton hint;
 	private JButton nextButton;         //Next button, start button, submit, goback, general navigation buttons for the quiz
         private JButton startButton;
         private JButton submit;
@@ -39,15 +45,19 @@ public class Quiz extends JPanel {
 	Questions questions;
 	String [] qarray;                   //Array for containing the question
 	int state;
+	int currentlesson;
         String finalAnswer = "";            //Final answer for comparison and evaluation
         int panelState;
         String currentSize;
+        boolean hintTrue = false;
         long start;
         long finish;
         public double [] questionTimes = new double[5];
         public int [] score = new int[5];
         //Label
         public JLabel alert;
+        public JLabel hintQ1;
+        public JLabel hintQ2;
         public JTextArea totalScore;
         public JTextArea question;
         public ProgressBar assessmentBar;
@@ -56,6 +66,7 @@ public class Quiz extends JPanel {
         {          //THE CONSTRUCTOR, Uses tutor.java as a parameter to gain access to a users current lesson status
                 this.tutorPanel = tutor;
                 setLayout(null);
+                hints = new ButtonGroup();
 		questions = new Questions();
 		state = 0;
                 currentSize = "min";
@@ -65,11 +76,27 @@ public class Quiz extends JPanel {
                 returnToMenu = new JButton("Return to Menu");
                 returnToMenu.setBounds(100, 200, 200, 50);
 		showFormulaSheet = new JButton("Formula Sheet");    //Formula sheet button to display formula sheet during the Quiz
+                hintYes = new JRadioButton("Yes");
+                hintNo = new JRadioButton("No");
+                hintYes.setBounds(250, 90, 50, 20);
+                hintNo.setBounds(250, 120, 50, 20);
+                hints.add(hintYes);
+                hints.add(hintNo);
+                hintYes.setSelected(true);
+                add(hintYes);
+                add(hintNo);
+                hintQ1 = new JLabel("Would you like");
+                hintQ1.setBounds(250, 40, 100, 20);
+                add(hintQ1);
+                hintQ2 = new JLabel("Hints enabled?");
+                hintQ2.setBounds(250, 60, 100, 20);
+                add(hintQ2);
                 alert = new JLabel();
                 totalScore = new JTextArea();
                 totalScore.setLineWrap(true);
                 //avgTime = new JLabel();
                 question = new JTextArea();
+                question.setLineWrap(true);
                 TextualFeedback textPopup = new TextualFeedback();
                 this.grade = newGrade;
                 this.assessmentBar = bar;
@@ -78,6 +105,7 @@ public class Quiz extends JPanel {
 		Ans2 = new JButton();
 		Ans3 = new JButton();
 		Ans4 = new JButton();
+                hint = new JButton("Hint");
                 submit = new JButton("Submit Answer");
                 nextButton = new JButton("Next");
                 goBack = new JButton("Go Back");
@@ -87,6 +115,7 @@ public class Quiz extends JPanel {
                 Ans2.addActionListener(new buttonListener());
                 Ans3.addActionListener(new buttonListener());
                 Ans4.addActionListener(new buttonListener());
+                hint.addActionListener(new buttonListener());
                 submit.addActionListener(new buttonListener());
                 goBack.addActionListener(new buttonListener());
                 nextButton.addActionListener(new buttonListener());
@@ -112,6 +141,10 @@ public class Quiz extends JPanel {
                         add(submit);
                         add(nextButton);
                         add(showFormulaSheet);
+                        if(hintTrue == true)
+                        {
+                            add(hint);
+                        }
                         System.out.print(state);
                         updateUI();
         }
@@ -120,22 +153,28 @@ public class Quiz extends JPanel {
             qarray = questions.getQuestion(x, y);
             return qarray[z];
         }
+    public String getCurrentHint(int x, int y)      //Returns the hint for the current question
+    {
+        qarray = questions.getQuestion(x, y);
+        String temp = qarray[6];
+        return temp;
+    }
     public void setWindowSize(String var)           //Used by resize() same as Tutor.Java
     {
     currentSize = var;
     }
-    public void questionTime(long x, long y, int z)
+    public void questionTime(long x, long y, int z)     // Calculates the question time based of system nano time
     {
         long time = (y - x)/100000000;
         double finalTime = (double)time;
         questionTimes[z] = finalTime/10.0;
         Controller.writeToTimeSpentArray(finalTime/10.0);
     }
-    public double[] returnQuestionTimes()
+    public double[] returnQuestionTimes()           // simply returns question time array
     {
         return questionTimes;
     }
-    public double returnAvgQTime()
+    public double returnAvgQTime()              // Calculates the avg time per question of the user
     {
         double avgQTime = 0.0;
         for(int i = 0; i < 5; i++)
@@ -146,7 +185,7 @@ public class Quiz extends JPanel {
         }
         return (avgQTime/5.0);
     }
-    public String finalScore()
+    public String finalScore()          // Computes the final score, the number of questions the user answered correctly
     {
         String fScore = "";
         String temp;
@@ -173,14 +212,22 @@ public class Quiz extends JPanel {
      {
             if(currentSize.equals("min"))
             {
+                hintYes.setBounds(250, 90, 50, 20);
+                hintNo.setBounds(250, 120, 50, 20);
+                hintQ1.setBounds(250, 40, 100, 20);
+                hintQ2.setBounds(250, 60, 100, 20);
                 alert.setBounds(75, 25, 200, 40);
                 totalScore.setBounds(25, 25, 150, 150);
                 startButton.setBounds(100, 100, 100, 50);
-                goBack.setBounds(200, 150, 200, 50);
+                goBack.setBounds(200, 150, 100, 50);
                 returnToMenu.setBounds(100, 200, 200, 50);
             }
             if(currentSize.equals("max"))
             {
+                hintYes.setBounds(350, 90, 50, 20);
+                hintNo.setBounds(350, 120, 50, 20);
+                hintQ1.setBounds(350, 40, 100, 20);
+                hintQ2.setBounds(350, 60, 100, 20);
                 alert.setBounds(75, 25, 200, 40);
                 totalScore.setBounds(25, 25, 150, 150);
                 startButton.setBounds(100, 100, 200, 50);
@@ -200,7 +247,8 @@ public class Quiz extends JPanel {
                 question.setBounds(150, 25, 175, 100);
                 submit.setBounds(200, 220, 130, 25);
                 nextButton.setBounds(200, 250, 130, 25);
-                showFormulaSheet.setBounds(200, 170, 130, 25);
+                hint.setBounds(200, 190, 130, 25);
+                showFormulaSheet.setBounds(200, 160, 130, 25);
             }
             if(currentSize.equals("max"))
             {
@@ -209,9 +257,10 @@ public class Quiz extends JPanel {
                 Ans3.setBounds(25, 185, 200, 50);
                 Ans4.setBounds(25, 265, 200, 50);
                 question.setBounds(450, 25, 350, 200);
-                submit.setBounds(470, 345, 200, 50);
+                submit.setBounds(470, 365, 200, 50);
                 nextButton.setBounds(470, 425, 200, 50);
-                showFormulaSheet.setBounds(470, 265, 200, 50);
+                hint.setBounds(470, 305, 200, 50);
+                showFormulaSheet.setBounds(470, 245, 200, 50);
             }
     }
 }
@@ -232,6 +281,10 @@ public class Quiz extends JPanel {
                             }
                             else if(tutorPanel.getCurrentLesson() >= 1 && tutorPanel.getCurrentLesson() <= 3)
                             {
+                                if(hintYes.isSelected())        // Checks of the user wants hints from the companion, if yes, sets true and creates a hint button
+                                {
+                                    hintTrue = true;
+                                }
                                 remove(startButton);
                                 panelState = 1;
                                 resize();
@@ -273,6 +326,7 @@ public class Quiz extends JPanel {
                            //  grade.changeAvatarBasedOnGrade(Controller.calculateStatus());
                            //  grade.comprehensionAnswerCorrect();        //Grader keeps track of score and computes a grade upon completion
                             // TextualFeedback.infoBox("Woo hoo! you got it right. Keep working hard!", "Winner-Winner Chicken Dinner!");
+                            controlcenter.comprehensionAnswerCorrect();
                          }
                          else 
                          {
@@ -285,6 +339,7 @@ public class Quiz extends JPanel {
                             grade.changeState(4);
                              //grade.changeAvatarBasedOnGrade(Controller.calculateStatus());
                             // TextualFeedback.infoBox("Uh oh... That doesn't look right. Try again!", "Everybody makes mistakes.");
+                            controlcenter.comprehensionAnswerWrong();
                          }
                         }
 			if(event.getSource() == nextButton)     //Next button goes to next question
@@ -308,6 +363,9 @@ public class Quiz extends JPanel {
                             }
                             else        //Upon Quiz completion, a goback button appears to return to start quiz panel
                             {
+                            	currentlesson = tutorPanel.getCurrentLesson();		
+                            	ExportPrintable export = new ExportPrintable();
+                            	export.display(controlcenter, currentlesson);
                                 removeAll();        
                                 panelState = 0;
                                 resize();
@@ -332,8 +390,16 @@ public class Quiz extends JPanel {
                             resize();
                             add(startButton);
                             add(returnToMenu);
+                            add(hintYes);
+                            add(hintNo);
+                            add(hintQ1);
+                            add(hintQ2);
                             state = 0;
                             updateUI();
+                        }
+                        if(event.getSource() == hint)
+                        {
+                             grade.changeFeedbackText(getCurrentHint(tutorPanel.getCurrentLesson() - 1, state));
                         }
                         if(event.getSource() == showFormulaSheet)       //Shows formula sheet
                         {

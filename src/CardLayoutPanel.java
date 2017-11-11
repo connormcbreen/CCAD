@@ -35,7 +35,6 @@ public class CardLayoutPanel extends  JPanel {
 //    JButton logout = new JButton("Logout");
 //    JButton deleteAccount = new JButton("Delete Account");
 
-
     Profile user = new Profile();
     JLabel nameLbl;
     JLabel emailLbl;
@@ -143,7 +142,7 @@ public class CardLayoutPanel extends  JPanel {
         testBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame testFrame = new JFrame();
+                
                 testFrame.setSize(500, 500);
                 testFrame.add(test);
                 testFrame.setVisible(true);

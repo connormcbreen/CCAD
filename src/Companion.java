@@ -1,10 +1,10 @@
 /** 
-* Companion class sets up an avatar that can be changed based on the variable state.
-* Assignment number: Recitation Project 3
-* Completion time: 20
+* Companion interface to be used in the decorator pattern.
+* Assignment number: Recitation Project 4
+* Completion time: 10 minutes
 * 
 * @author Carter
-* @version 3.0
+* @version 1.0
 */
 
 
