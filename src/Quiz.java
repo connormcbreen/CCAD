@@ -41,10 +41,11 @@ public class Quiz extends JPanel {
         private JButton goBack;
         private JButton returnToMenu;
         private JButton showFormulaSheet;
-      //  ControlCenter grade = ControlCenter.getInstance();       //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
+    ControlCenter controlcenter = ControlCenter.getInstance();       //Grader implementation, allows for the tracking of a users score on the quiz and update their profile
 	Questions questions;
 	String [] qarray;                   //Array for containing the question
 	int state;
+	int currentlesson;
         String finalAnswer = "";            //Final answer for comparison and evaluation
         int panelState;
         String currentSize;
@@ -315,12 +316,14 @@ public class Quiz extends JPanel {
                             score[state] = 1;
                             grade.changeFeedbackText("correct, you are a super genius!");
                             grade.changeState(1);
+                            controlcenter.comprehensionAnswerCorrect();
                          }
                          else 
                          {
                              score[state] = 0;
                             grade.changeFeedbackText("you're a dumb dumb...");
                             grade.changeState(4);
+                            controlcenter.comprehensionAnswerWrong();
                          }
                         }
 			if(event.getSource() == nextButton)     //Next button goes to next question
@@ -343,6 +346,9 @@ public class Quiz extends JPanel {
                             }
                             else        //Upon Quiz completion, a goback button appears to return to start quiz panel
                             {
+                            	currentlesson = tutorPanel.getCurrentLesson();		
+                            	ExportPrintable export = new ExportPrintable();
+                            	export.display(controlcenter, currentlesson);
                                 removeAll();        
                                 panelState = 0;
                                 resize();
