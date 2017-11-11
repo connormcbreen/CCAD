@@ -5,7 +5,9 @@
  * Author: Abhishek Patel
  * version: 4.0
  */
-
+//add this when state > 5 (currentlesson = tutorPanel.getCurrentLesson();
+//                            	ExportPrintable A = new ExportPrintable();
+   //                         	A.display(grade, currentlesson);)
 
 
 
@@ -29,24 +31,20 @@ public class ExportPrintable {
 	
 	public void displayinfo(Profile A) {
 		
-		String name = "Name: " + A.getName();
-		String email = "Email: " + A.getEmail();
+		String name = "Name: " + A.getName(); //name that the user enters
+		String email = "Email: " + A.getEmail(); // email that the user enters
 		write(name);
 		write(email);
 		write("____________________________");
-		System.out.println("Name = " + A.getName());
-		System.out.println("Email = " + A.getEmail());
-		System.out.println("________________________________________________________________________________");
+	}
 		
-		
-		}
 	public void display(ControlCenter A, int lesson) {
 		
-		String lessonnum = "-> Lesson: " + lesson;
-		String QuestionsAnswered = "-> Questions answered: " + A.getQuestionsAnswered();
-		String correct = "-> Correct answers: " + A.getCorrectAnswers();
-		String wrong = "-> Wrong answers: " + A.getWrongAnswers();
-		String grade = "-> Totlal grade: " + A.getGrade() + "%";
+		String lessonnum = "-> Lesson: " + lesson; //lesson numbers
+		String QuestionsAnswered = "-> Questions answered: " + A.getQuestionsAnswered(); // the numner of questions answered
+		String correct = "-> Correct answers: " + A.getCorrectAnswers();//number of correct answers
+		String wrong = "-> Wrong answers: " + A.getWrongAnswers(); // number of wrong answers
+		String grade = "-> Totlal grade: " + A.getoverallgrade() + "%"; // the ovarall grade. 
 		
 		
 		write(lessonnum);
@@ -85,4 +83,7 @@ public class ExportPrintable {
 		    return String.format("%1$" + n + "s", s);
 		  }
 }
+
+
+
 
