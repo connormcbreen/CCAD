@@ -39,7 +39,7 @@ public class Universe {
     private JButton continueBtn = new JButton();
     private JRadioButton yesBtn = new JRadioButton("Yes");
     private JRadioButton noBtn = new JRadioButton("No");
-    private JLabel yesOrNo = new JLabel("Would you like to have your tutor give you textual feedback while you're working?");
+    private JLabel yesOrNo = new JLabel("Would you like to have your tutor give you  feedback while you're working?");
     
 
     //Components for main lesson Frame
@@ -193,6 +193,8 @@ public class Universe {
                 		setupMainFrame();
                     userProfile.setName(nameEntry.getText());
                     userProfile.setEmail(emailEntry.getText());
+                    ExportPrintable export = new ExportPrintable();
+                    export.displayinfo(userProfile);
                     System.out.println("\n User name is: " + userProfile.name);
                     System.out.println("User email is: " + userProfile.email);
                     cardPanel.nameLbl.setText("Name: " + userProfile.getName());
@@ -266,3 +268,4 @@ public class Universe {
         }
     }
 }
+
